@@ -16,9 +16,9 @@ namespace TemplateCode.Models
         public Verblijf inVerblijf;
         private Verzorger verzorger;
 
-        private List<string> voerLijst;
-        private List<string> gezondheidsNotities;
-        private List<DateTime> voedingsMomenten;
+        private List<DierVoer> voerLijst;
+        private List<GezondheidsNotitie> gezondheidsNotities;
+        private List<VoedingsMoment> voedingsMomenten;
 
         public Dier(string dierID, string naam, string soort, int leeftijd, Verblijf inVerblijf, Verzorger verzorger)
         {
@@ -30,9 +30,9 @@ namespace TemplateCode.Models
             this.inVerblijf = inVerblijf;
             this.verzorger = verzorger;
 
-            voerLijst = new List<string>();
-            gezondheidsNotities = new List<string>();
-            voedingsMomenten = new List<DateTime>();
+            voerLijst = new List<DierVoer>();
+            gezondheidsNotities = new List<GezondheidsNotitie>();
+            voedingsMomenten = new List<VoedingsMoment>();
 
             //this.voerLijst = new List<string>();
             //this.gezondheidsNotities = new List<string>();

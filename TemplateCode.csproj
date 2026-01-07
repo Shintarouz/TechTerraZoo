@@ -166,9 +166,11 @@
   <ItemGroup>
     <Compile Include="DataAcces\DalSQL.cs" />
     <Compile Include="Models\Dier.cs" />
-    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\DierVoer.cs" />
+    <Compile Include="Models\GezondheidsNotitie.cs" />
     <Compile Include="Models\Verblijf.cs" />
     <Compile Include="Models\Verzorger.cs" />
+    <Compile Include="Models\VoedingsMoment.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
