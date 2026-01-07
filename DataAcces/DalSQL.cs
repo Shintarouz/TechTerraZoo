@@ -19,14 +19,14 @@ namespace TemplateCode.DataAcces
         public DalSQL()
         {
             serverName = "LAPTOP-5FM0T3FM";
-            databaseName = "Bestelsysteem";
+            databaseName = "DBTechTerraZoo";
             connectionString = $"Server={serverName};Database={databaseName};Trusted_Connection=True;TrustServerCertificate=True;";
         }
 
-        public List<Product> GetAllProducts()
+        public List<Dier> GetAllDieren()
         {
-            string query = "SELECT Id, Name, Price FROM Product";
-            List<Product> products = new List<Product>();
+            string query = @"SELECT DierID, Naam, Soort, Leeftijd, VerblijfID, VerzorgerID FROM Dier";
+            List<Dier> dieren = new List<Dier>();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -36,18 +36,21 @@ namespace TemplateCode.DataAcces
                 {
                     while (reader.Read())
                     {
-                        int id = reader.GetInt32(0);
-                        string productName = reader.GetString(1);
-                        decimal productPrice = reader.GetDecimal(2);
+                        string dierID = reader.GetString(0);
+                        string naam = reader.GetString(1);
+                        string soort = reader.GetString(2);
+                        int leeftijd = reader.GetInt32(3);
 
-                        var product = new Product(id, productName, productPrice);
+                        Verblijf verblijf = null; // placeholder, vervang dit later
+                        Verzorger verzorger = null; // placeholder, vervang dit later
 
-                        products.Add(product);
+                        Dier dier = new Dier(dierID, naam, soort, leeftijd, null, null);
+                        dieren.Add(dier);
                     }
                 }
             }
 
-            return products;
+            return dieren;
         }
     }
 

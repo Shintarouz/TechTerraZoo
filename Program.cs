@@ -13,7 +13,7 @@ namespace TemplateCode
     {
         static void Main(string[] args)
         {
-            CreateProductData(); // Zet SQL data klaar
+            CreateDierData(); // Zet SQL data klaar
             Running(); // start het menu
         }
         public static void Running()
@@ -35,7 +35,6 @@ namespace TemplateCode
             bool running = true;
             while (running)
             {
-                Console.Clear();
                 Console.WriteLine("Keuze : ");
                 Console.WriteLine("1. Dieren Overzicht");
                 Console.WriteLine("2. Nieuw Dier Toevoegen");
@@ -196,14 +195,22 @@ namespace TemplateCode
                 }
             }
         }
-        public static void CreateProductData()
+        public static void CreateDierData()
         {
+            Console.WriteLine("Uitgevoerd");
             DalSQL dalsql = new DalSQL();
-            List<Product> producten = dalsql.GetAllProducts();
-            foreach (var product in producten)
+            var dieren = dalsql.GetAllDieren();
+
+            foreach (var dier in dieren)
             {
-                Console.WriteLine($"Id: {product.Id}, Naam: {product.Name}, Prijs: {product.Price}");
+                Console.WriteLine($"Id: {dier.dierID}, Naam: {dier.naam}, Soort: {dier.soort}, Leeftijd: {dier.leeftijd}");
             }
+
+            //List<Product> producten = dalsql.GetAllProducts();
+            //foreach (var product in producten)
+            //{
+            //    Console.WriteLine($"Id: {product.Id}, Naam: {product.Name}, Prijs: {product.Price}");
+            //}
         }
     }
 }

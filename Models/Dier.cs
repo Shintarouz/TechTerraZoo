@@ -8,10 +8,10 @@ namespace TemplateCode.Models
 {
     class Dier
     {
-        private string dierID;
+        public string dierID;
         public string naam;
         public string soort;
-        private int leeftijd;
+        public int leeftijd;
 
         public Verblijf inVerblijf;
         private Verzorger verzorger;
