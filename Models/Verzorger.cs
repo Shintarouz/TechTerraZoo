@@ -8,8 +8,8 @@ namespace TemplateCode.Models
 {
     class Verzorger
     {
-        private string naam;
-        private string verzorgerID;
+        public string naam;
+        public string verzorgerID;
         private List<Dier> toegewezenDieren;
 
         public Verzorger(string naam, string verzorgerID)

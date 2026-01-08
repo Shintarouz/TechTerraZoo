@@ -23,6 +23,7 @@ namespace TemplateCode.DataAcces
             connectionString = $"Server={serverName};Database={databaseName};Trusted_Connection=True;TrustServerCertificate=True;";
         }
 
+        
         public List<Dier> GetAllDieren()
         {
             string query = @"SELECT DierID, Naam, Soort, Leeftijd, VerblijfID, VerzorgerID FROM Dier";
@@ -49,8 +50,81 @@ namespace TemplateCode.DataAcces
                     }
                 }
             }
-
             return dieren;
+        }
+
+
+        public List<Verblijf> GetAllVerblijven()
+        {
+            string query = @"SELECT VerblijfID, Naam, Temperatuur, Capaciteit, TypeOmgeving FROM Verblijf";
+            List<Verblijf> verblijven = new List<Verblijf>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string verblijfID = reader.GetString(0);
+                        string naam = reader.GetString(1);
+                        int temperatuur = reader.GetInt32(2);
+                        int capaciteit = reader.GetInt32(3);
+                        string typeOmgeving = reader.GetString(4);
+                        Verblijf verblijf = new Verblijf(verblijfID, naam, temperatuur, capaciteit, typeOmgeving);
+                        verblijven.Add(verblijf);
+                    }
+                }
+
+            }
+            return verblijven;
+        }
+
+        public List<Verzorger> GetAllVerzorgers()
+        {
+            string query = @"SELECT VerzorgerID, Naam FROM Verzorger";
+            List<Verzorger> verzorgers = new List<Verzorger>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string verzorgerID = reader.GetString(0);
+                        string naam = reader.GetString(1);
+                        Verzorger verzorger = new Verzorger(naam, verzorgerID);
+                        verzorgers.Add(verzorger);
+                    }
+                }
+            }
+            return verzorgers;
+        }
+
+        public List<DierVoer> GetAllDierVoer()
+        {
+            string query = @"SELECT VoerID, Naam, Hoeveelheid FROM DierVoer";
+            List<DierVoer> dierVoerLijst = new List<DierVoer>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string voerID = reader.GetString(0);
+                        string naam = reader.GetString(1);
+                        int hoeveelheid = reader.GetInt32(2);
+                        DierVoer dierVoer = new DierVoer(voerID, naam, hoeveelheid);
+                        dierVoerLijst.Add(dierVoer);
+                    }
+                }
+            }
+            return dierVoerLijst;
         }
     }
 

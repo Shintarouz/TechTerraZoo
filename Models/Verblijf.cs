@@ -8,9 +8,9 @@ namespace TemplateCode.Models
 {
     class Verblijf
     {
+        public string verblijfID;
         public string naam;
-        private string verblijfID;
-        private int aantalDieren;
+        // private int aantalDieren;
         private int temperatuur;
         private int capaciteit;
         private string typeOmgeving;
@@ -18,11 +18,11 @@ namespace TemplateCode.Models
         private List<Dier> dierenInVerblijf;
         
 
-        public Verblijf(string naam, string verblijfID, int aantalDieren, int temperatuur, int capaciteit, string typeOmgeving)
+        public Verblijf(string verblijfID, string naam, int temperatuur, int capaciteit, string typeOmgeving)
         {
-            this.naam = naam;
             this.verblijfID = verblijfID;
-            this.aantalDieren = aantalDieren;
+            this.naam = naam;
+            // this.aantalDieren = aantalDieren;
             this.temperatuur = temperatuur;
             this.capaciteit = capaciteit;
             this.typeOmgeving = typeOmgeving;

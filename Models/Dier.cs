@@ -8,7 +8,7 @@ namespace TemplateCode.Models
 {
     class Dier
     {
-        public string dierID;
+        public string dierID; // CODE IS NIET GE-ENCAPSULEERD VOOR PRINT REDENEN!!
         public string naam;
         public string soort;
         public int leeftijd;

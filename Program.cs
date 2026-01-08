@@ -13,17 +13,18 @@ namespace TemplateCode
     {
         static void Main(string[] args)
         {
-            CreateDierData(); // Zet SQL data klaar
+            CreateAllData();
             Running(); // start het menu
         }
+
         public static void Running()
-        {   
+        {
             // maak temp verblijf en verzorger aan
-            Verblijf WachtVerblijf = new Verblijf("WachtVerblijf", "WV01", 0, 20, 10, "Algemeen");
+            Verblijf WachtVerblijf = new Verblijf("VW01", "WachtVerblijf", 20, 5, "Oerwoud");
             Verzorger WachtVerzorger = new Verzorger("WachtVerzorger", "WVZ01");
 
             // maak eerste verblijf en dier aan
-            Verblijf TestVerblijf1 = new Verblijf("Verblijf01", "VB01", 0, 18, 5, "Tropisch");
+            Verblijf TestVerblijf1 = new Verblijf("VW02", "TestVerblijf1", 20, 5, "Oerwoud");
             Verzorger Bart = new Verzorger("Bart", "VZ01");
             //TestVerblijf1.VoegDierToe(new Dier("12", "leo", "Leeuw", 2, WachtVerblijf, WachtVerzorger));
 
@@ -155,11 +156,12 @@ namespace TemplateCode
                                     Console.Clear();
                                     Console.WriteLine("Nieuw verblijf aanmaken");
 
+                                    Console.WriteLine("Verblijf ID : ");
+                                    string verblijfID = Convert.ToString(Console.ReadLine());
+
                                     Console.WriteLine("Verblijf Naam : ");
                                     string verblijfNaam = Convert.ToString(Console.ReadLine());
 
-                                    Console.WriteLine("Verblijf ID : ");
-                                    string verblijfID = Convert.ToString(Console.ReadLine());
 
                                     Console.WriteLine("Temperatuur : ");
                                     int temperatuur = Convert.ToInt32(Console.ReadLine());
@@ -170,7 +172,7 @@ namespace TemplateCode
                                     Console.WriteLine("Type Omgeving : ");
                                     string typeOmgeving = Convert.ToString(Console.ReadLine());
 
-                                    Verblijf nieuwVerblijf = new Verblijf(verblijfNaam, verblijfID, 0, temperatuur, capaciteit, typeOmgeving);
+                                    Verblijf nieuwVerblijf = new Verblijf(verblijfID, verblijfNaam, temperatuur, capaciteit, typeOmgeving);
                                     verblijven.Add(nieuwVerblijf);
 
                                     Console.WriteLine("Verblijf succesvol toegevoegd. Druk op een toets om door te gaan...");
@@ -195,22 +197,65 @@ namespace TemplateCode
                 }
             }
         }
-        public static void CreateDierData()
+
+        public static void CreateAllData()
         {
-            Console.WriteLine("Uitgevoerd");
             DalSQL dalsql = new DalSQL();
             var dieren = dalsql.GetAllDieren();
+            var verblijven = dalsql.GetAllVerblijven();
+            var verzorgers = dalsql.GetAllVerzorgers();
 
             foreach (var dier in dieren)
             {
-                Console.WriteLine($"Id: {dier.dierID}, Naam: {dier.naam}, Soort: {dier.soort}, Leeftijd: {dier.leeftijd}");
+                Console.WriteLine($"Id: {dier.dierID}, Naam: {dier.naam}, Soort: {dier.soort}, Leeftijd: {dier.leeftijd}"); // VERANDER DIT LATER VANWEGE PROTECTION LEVEL!!!
             }
 
-            //List<Product> producten = dalsql.GetAllProducts();
-            //foreach (var product in producten)
-            //{
-            //    Console.WriteLine($"Id: {product.Id}, Naam: {product.Name}, Prijs: {product.Price}");
-            //}
+            foreach (var verblijf in verblijven)
+            {
+                Console.WriteLine($"Id: {verblijf.verblijfID}, Naam: {verblijf.naam}, AantalDieren: {verblijf.AantalDieren()}"); // VERANDER DIT LATER VANWEGE PROTECTION LEVEL!!!
+            }
+
+            foreach (var verzorger in verzorgers)
+            {
+                Console.WriteLine($"Id: {verzorger.verzorgerID}, Naam: {verzorger.naam}"); // VERANDER DIT LATER VANWEGE PROTECTION LEVEL!!!
+            }
         }
+
+        //public static void CreateData()
+        //{
+        //    CreateDierData(); // haal dier data op uit database
+        //    CreateVerblijfData(); // haal verblijf data op uit database
+        //    CreateVerzorgerData(); // haal verzorger data op uit database
+        //}
+
+        //public static void CreateDierData()
+        //{
+        //    DalSQL dalsql = new DalSQL();
+        //    var dieren = dalsql.GetAllDieren();
+        //    foreach (var dier in dieren)
+        //    {
+        //        Console.WriteLine($"Id: {dier.dierID}, Naam: {dier.naam}, Soort: {dier.soort}, Leeftijd: {dier.leeftijd}"); // VERANDER DIT LATER VANWEGE PROTECTION LEVEL!!!
+        //    }
+        //}
+
+        //public static void CreateVerblijfData()
+        //{
+        //    DalSQL dalsql = new DalSQL();
+        //    var verblijven = dalsql.GetAllVerblijven();
+        //    foreach (var verblijf in verblijven)
+        //    {
+        //        Console.WriteLine($"Id: {verblijf.verblijfID}, Naam: {verblijf.naam}, AantalDieren: {verblijf.AantalDieren()}"); // VERANDER DIT LATER VANWEGE PROTECTION LEVEL!!!
+        //    }
+        //}
+
+        //public static void CreateVerzorgerData()
+        //{
+        //    DalSQL dalsql = new DalSQL();
+        //    var verzorgers = dalsql.GetAllVerzorgers();
+        //    foreach (var verzorger in verzorgers)
+        //    {
+        //        Console.WriteLine($"Id: {verzorger.verzorgerID}, Naam: {verzorger.naam}"); // VERANDER DIT LATER VANWEGE PROTECTION LEVEL!!!
+        //    }
+        //}
     }
 }
