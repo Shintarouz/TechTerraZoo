@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TemplateCode.DataAcces;
-using TemplateCode.Models;
+using TechTerra.DataAcces;
+using TechTerra.Models;
 
-namespace TemplateCode
+namespace TechTerra
 {
     class Program
     {
         static void Main(string[] args)
         {
+
+
             CreateAllData();
             Running(); // start het menu
         }
@@ -21,6 +23,10 @@ namespace TemplateCode
         {
             // maak temp verblijf en verzorger aan
             Verblijf WachtVerblijf = new Verblijf("VW01", "WachtVerblijf", 20, 5, "Oerwoud");
+            Dier inktvis = new Dier("D001", "Inky", "Inktvis", 3, WachtVerblijf, null);
+
+            WachtVerblijf.VoegDierToe(inktvis);
+
             Verzorger WachtVerzorger = new Verzorger("WachtVerzorger", "WVZ01");
 
             // maak eerste verblijf en dier aan

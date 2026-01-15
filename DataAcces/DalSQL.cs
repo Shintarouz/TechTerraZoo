@@ -4,9 +4,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TemplateCode.Models;
+using TechTerra.Models;
 
-namespace TemplateCode.DataAcces
+namespace TechTerra.DataAcces
 {
     class DalSQL
     {
@@ -42,8 +42,10 @@ namespace TemplateCode.DataAcces
                         string soort = reader.GetString(2);
                         int leeftijd = reader.GetInt32(3);
 
+
                         Verblijf verblijf = null; // placeholder, vervang dit later
                         Verzorger verzorger = null; // placeholder, vervang dit later
+                        // Eerst verblijven ophalen en daarna verzorger, pas als laatste dieren.
 
                         Dier dier = new Dier(dierID, naam, soort, leeftijd, null, null);
                         dieren.Add(dier);
@@ -104,28 +106,28 @@ namespace TemplateCode.DataAcces
             return verzorgers;
         }
 
-        public List<DierVoer> GetAllDierVoer()
-        {
-            string query = @"SELECT VoerID, Naam, Hoeveelheid FROM DierVoer";
-            List<DierVoer> dierVoerLijst = new List<DierVoer>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                connection.Open();
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        string voerID = reader.GetString(0);
-                        string naam = reader.GetString(1);
-                        int hoeveelheid = reader.GetInt32(2);
-                        DierVoer dierVoer = new DierVoer(voerID, naam, hoeveelheid);
-                        dierVoerLijst.Add(dierVoer);
-                    }
-                }
-            }
-            return dierVoerLijst;
-        }
+        //public List<DierVoer> GetAllDierVoer()
+        //{
+        //    string query = @"SELECT VoerID, Naam, Hoeveelheid FROM DierVoer";
+        //    List<DierVoer> dierVoerLijst = new List<DierVoer>();
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    using (SqlCommand command = new SqlCommand(query, connection))
+        //    {
+        //        connection.Open();
+        //        using (SqlDataReader reader = command.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                string voerID = reader.GetString(0);
+        //                string naam = reader.GetString(1);
+        //                int hoeveelheid = reader.GetInt32(2);
+        //                DierVoer dierVoer = new DierVoer(voerID, naam, hoeveelheid);
+        //                dierVoerLijst.Add(dierVoer);
+        //            }
+        //        }
+        //    }
+        //    return dierVoerLijst;
+        //}
     }
 
 }

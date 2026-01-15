@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TemplateCode.Models
+namespace TechTerra.Models
 {
     class VoedingsMoment
     {
         public string MomentID { get; }
         public string DierID { get; }
-        public DateTime Tijdstip { get; }
+        public DateTime TijdStip { get; }
 
-        public VoedingsMoment(string momentID, string dierID, DateTime tijdstip)
+        public VoedingsMoment(string momentID, string dierID, DateTime tijdStip)
         {
             MomentID = momentID;
             DierID = dierID;
-            Tijdstip = tijdstip;
+            TijdStip = tijdStip;
         }
 
         public override string ToString()

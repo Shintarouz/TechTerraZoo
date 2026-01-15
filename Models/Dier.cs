@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TemplateCode.Models
+namespace TechTerra.Models
 {
     class Dier
     {
@@ -19,7 +19,6 @@ namespace TemplateCode.Models
         private List<DierVoer> voerLijst;
         private List<GezondheidsNotitie> gezondheidsNotities;
         private List<VoedingsMoment> voedingsMomenten;
-
         public Dier(string dierID, string naam, string soort, int leeftijd, Verblijf inVerblijf, Verzorger verzorger)
         {
             this.dierID = dierID;
@@ -33,10 +32,6 @@ namespace TemplateCode.Models
             voerLijst = new List<DierVoer>();
             gezondheidsNotities = new List<GezondheidsNotitie>();
             voedingsMomenten = new List<VoedingsMoment>();
-
-            //this.voerLijst = new List<string>();
-            //this.gezondheidsNotities = new List<string>();
-            //this.voedingsMomenten = new List<DateTime>();
         }
 
         public override string ToString()
