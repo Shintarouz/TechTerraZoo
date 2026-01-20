@@ -9,8 +9,8 @@ namespace TechTerra.Models
 {
     class Verblijf
     {
-        
-        public string verblijfID;
+
+        private string verblijfID;
         public string naam;
         // private int aantalDieren;
         private decimal temperatuur;
@@ -18,7 +18,7 @@ namespace TechTerra.Models
         private string typeOmgeving;
 
         private List<Dier> dierenInVerblijf;
-        
+
         // Constructor
         public Verblijf(string verblijfID, string naam, decimal temperatuur, int capaciteit, string typeOmgeving)
         {
@@ -80,21 +80,23 @@ namespace TechTerra.Models
         // Print informatie bij encapsulation
         public override string ToString()
         {
-            string result = $"VerblijfID: {verblijfID}, Naam: {naam}, AantalDieren: {dierenInVerblijf.Count}\n";
-            result += "Dieren in verblijf:\n";
+            return $"DierID: {verblijfID}, Naam: {naam}, temperatuur : {temperatuur}, capaciteit: {capaciteit}, typeOmgeving: {typeOmgeving}";
+            //    string result = $"VerblijfID: {verblijfID}, Naam: {naam}, AantalDieren: {dierenInVerblijf.Count}\n";
+            //    result += "Dieren in verblijf:\n";
 
-            if (dierenInVerblijf.Count == 0)
-            {
-                result += "  (geen dieren)\n";
-            }
-            else
-            {
-                foreach (Dier dier in dierenInVerblijf)
-                {
-                    result += "  - " + dier + "\n";
-                }
-            }
-            return result;
+            //    if (dierenInVerblijf.Count == 0)
+            //    {
+            //        result += "  (geen dieren)\n";
+            //    }
+            //    else
+            //    {
+            //        foreach (Dier dier in dierenInVerblijf)
+            //        {
+            //            result += "  - " + dier + "\n";
+            //        }
+            //    }
+            //    return result;
+            //}
         }
     }
 }

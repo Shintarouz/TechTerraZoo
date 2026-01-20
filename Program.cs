@@ -70,7 +70,6 @@ namespace TechTerra
             bool running = true;
             while (running)
             {
-                Console.Clear();
                 Console.WriteLine("1. Dier Overzicht");
                 Console.WriteLine("2. Dier Toevoegen");
                 Console.WriteLine("3. Dier Verwijderen");
@@ -81,7 +80,6 @@ namespace TechTerra
                 {
                     case "1":
                         // Optie 1.1 : overzicht van dieren in de lijst.
-                        Console.Clear();
                         if (dieren.Count == 0 )
                         {
                             Console.WriteLine("Er zijn geen dieren in de lijst.");
@@ -171,7 +169,6 @@ namespace TechTerra
             bool running = true;
             while (running)
             {
-                Console.Clear();
                 Console.WriteLine("1. Verblijf Overzicht");
                 Console.WriteLine("2. Verblijf Toevoegen");
                 Console.WriteLine("3. Verblijf Verwijderen");
@@ -181,14 +178,76 @@ namespace TechTerra
                 switch (inputChoice)
                 {
                     case "1":
-                        // Optie 3.1 : Verblijf overzicht
-                        break;
+						// Optie 3.1 : Verblijf overzicht
+						if (verblijven.Count == 0)
+						{
+							Console.WriteLine("Er zijn geen verblijven in de lijst.");
+						}
+
+						else
+						{
+							foreach (Verblijf verblijf in verblijven)
+							{
+								Console.WriteLine(verblijf.ToString());
+							}
+						}
+						break;
                     case "2":
-                        // Optie 3.2 : Verblijf toevoegen
-                        break;
+						// Optie 3.2 : Verblijf toevoegen
+						Console.Clear();
+
+						Console.WriteLine("Nieuw verblijf toevoegen");
+
+						Console.Write("VerblijfID :");
+						string verblijfID = Console.ReadLine();
+
+						Console.Write("Naam : ");
+						string naam = Console.ReadLine();
+
+						Console.Write("Temperatuur : ");
+						decimal temperatuur = Convert.ToDecimal(Console.ReadLine());
+
+						Console.Write("Capaciteit : ");
+						int capaciteit = Convert.ToInt32(Console.ReadLine());
+
+						Console.Write("Type omgeving : ");
+						string typeOmgeving = Console.ReadLine();
+
+						Verblijf nieuwVerblijf = new Verblijf(verblijfID, naam, temperatuur, capaciteit, typeOmgeving);
+						verblijven.Add(nieuwVerblijf);
+						// place holders, hier moeten verblijf en verzorger nog toegevoegd worden.
+						break;
                     case "3":
-                        // Optie 3.3 : Verblijf verwijderen
-                        break;
+						// Optie 3.3 : Verblijf verwijderen
+						Console.Clear();
+
+						if (verblijven.Count == 0)
+						{
+							Console.WriteLine("Er zijn geen verblijven om te verwijderen.");
+							break;
+						}
+
+						Console.WriteLine("Kies een dier om te verwijderen:");
+
+						for (int i = 0; i < verblijven.Count; i++)
+						{
+							Console.WriteLine($"{i + 1}. {verblijven[i].naam}");
+						}
+						Console.Write("Nummer van dier: ");
+
+						if (!int.TryParse(Console.ReadLine(), out int keuze) || keuze < 1 || keuze > verblijven.Count)
+						{
+							Console.WriteLine("Ongeldige keuze.");
+							break;
+						}
+
+						Verblijf verwijderVerblijven = verblijven[keuze - 1];
+						verblijven.RemoveAt(keuze - 1);
+
+
+						Console.WriteLine($"Verblijf {verwijderVerblijven.naam} succesvol verwijderd.");
+						Console.ReadKey();
+						break;
                     case "4":
                         // Optie 3.4 : Terug naar hoofdmenu
                         running = false;
