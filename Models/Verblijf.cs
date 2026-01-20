@@ -19,7 +19,7 @@ namespace TechTerra.Models
 
         private List<Dier> dierenInVerblijf;
         
-
+        // Constructor
         public Verblijf(string verblijfID, string naam, decimal temperatuur, int capaciteit, string typeOmgeving)
         {
             this.verblijfID = verblijfID;
@@ -32,16 +32,19 @@ namespace TechTerra.Models
             dierenInVerblijf = new List<Dier>();
         }
 
+        // Voeg dier toe aan verblijf
         public void VoegDierToe(Dier dier)
         {
             dierenInVerblijf.Add(dier);
         }
 
+        // Verwijder dier uit verblijf
         public void VerwijderDier(Dier dier)
         {
             dierenInVerblijf.Remove(dier);
         }
 
+        // Toon aantal dieren in verblijf
         public void ToonDieren()
         {
             if (dierenInVerblijf.Count == 0)
@@ -58,20 +61,23 @@ namespace TechTerra.Models
             }
         }
 
-        public bool VerwijderDierOpIndex(int index)
-        {
-            if (index < 0 || index >= dierenInVerblijf.Count)
-                return false;
-
-            dierenInVerblijf.RemoveAt(index);
-            return true;
-        }
-
         public int AantalDieren()
         {
             return dierenInVerblijf.Count;
         }
 
+        //// Verwijder dier op index basis
+        //public bool VerwijderDierOpIndex(int index)
+        //{
+        //    if (index < 0 || index >= dierenInVerblijf.Count)
+        //        return false;
+
+        //    dierenInVerblijf.RemoveAt(index);
+        //    return true;
+        //}
+
+
+        // Print informatie bij encapsulation
         public override string ToString()
         {
             string result = $"VerblijfID: {verblijfID}, Naam: {naam}, AantalDieren: {dierenInVerblijf.Count}\n";

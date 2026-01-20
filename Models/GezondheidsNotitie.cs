@@ -13,6 +13,7 @@ namespace TechTerra.Models
         public string Notitie { get; }
         public DateTime Datum { get; }
 
+        // Constructor
         public GezondheidsNotitie(string notitieID, string dierID, string notitie, DateTime datum)
         {
             NotitieID = notitieID;

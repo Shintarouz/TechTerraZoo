@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Identity.Client;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -23,7 +24,8 @@ namespace TechTerra.DataAcces
             connectionString = $"Server={serverName};Database={databaseName};Trusted_Connection=True;TrustServerCertificate=True;";
         }
 
-        
+
+        // Haalt alle dieren op in de database en maakt er objecten van.
         public List<Dier> GetAllDieren()
         {
             string query = @"SELECT DierID, Naam, Soort, Leeftijd, VerblijfID, VerzorgerID FROM Dier";
@@ -55,7 +57,7 @@ namespace TechTerra.DataAcces
             return dieren;
         }
 
-
+        // Haalt alle verblijven op in de database en maakt er objecten van.
         public List<Verblijf> GetAllVerblijven()
         {
             string query = @"SELECT VerblijfID, Naam, Temperatuur, Capaciteit, TypeOmgeving FROM Verblijf";
@@ -83,6 +85,7 @@ namespace TechTerra.DataAcces
             return verblijven;
         }
 
+        // Haalt alle verzorgers op in de database en maakt er objecten van.
         public List<Verzorger> GetAllVerzorgers()
         {
             string query = @"SELECT VerzorgerID, Naam FROM Verzorger";

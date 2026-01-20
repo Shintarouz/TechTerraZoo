@@ -12,6 +12,7 @@ namespace TechTerra.Models
         public string DierID { get; }
         public DateTime TijdStip { get; }
 
+        // Constructor
         public VoedingsMoment(string momentID, string dierID, DateTime tijdStip)
         {
             MomentID = momentID;

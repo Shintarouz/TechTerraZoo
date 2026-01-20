@@ -12,6 +12,7 @@ namespace TechTerra.Models
         public string verzorgerID;
         private List<Dier> toegewezenDieren;
 
+        // Constructor
         public Verzorger(string naam, string verzorgerID)
         {
             this.naam = naam;
@@ -19,11 +20,13 @@ namespace TechTerra.Models
             toegewezenDieren = new List<Dier>();
         }
 
+        // Voeg dier toe aan verzorger
         public void WijzigDierToe(Dier dier)
         {
             toegewezenDieren.Add(dier);
         }
 
+        // Verwijder dier van verzorger
         public void VerwijderDier(Dier dier)
         {
             toegewezenDieren.Remove(dier);
