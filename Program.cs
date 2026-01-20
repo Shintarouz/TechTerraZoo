@@ -53,7 +53,7 @@ namespace TechTerra
 
                     case "4":
                         // Optie 4 : verzorgers
-                        VerblijfMenu();
+                        VerzorgerMenu();
                         break;
 
                     case "5":
@@ -70,16 +70,19 @@ namespace TechTerra
             bool running = true;
             while (running)
             {
+                Console.Clear();
                 Console.WriteLine("1. Dier Overzicht");
                 Console.WriteLine("2. Dier Toevoegen");
                 Console.WriteLine("3. Dier Verwijderen");
-                Console.WriteLine("4. Terug");
+                Console.WriteLine("4. Dier Toevoegen aan Verblijf");
+                Console.WriteLine("5. Terug");
                 Console.Write("Keuze : ");
                 string inputChoice = Convert.ToString(Console.ReadLine());
                 switch (inputChoice)
                 {
                     case "1":
                         // Optie 1.1 : overzicht van dieren in de lijst.
+                        Console.Clear();
                         if (dieren.Count == 0 )
                         {
                             Console.WriteLine("Er zijn geen dieren in de lijst.");
@@ -91,6 +94,7 @@ namespace TechTerra
                                 Console.WriteLine(dier.ToString());
                             }
                         }
+                        Console.ReadKey();
                         break;
 
 
@@ -117,11 +121,8 @@ namespace TechTerra
                         // place holders, hier moeten verblijf en verzorger nog toegevoegd worden.
                         break;
                     case "3":
-
-
                         // Optie 1.3 : Dier verwijderen
                         Console.Clear();
-                        
                         if (dieren.Count == 0)
                         {
                             Console.WriteLine("Er zijn geen dieren om te verwijderen.");
@@ -150,8 +151,55 @@ namespace TechTerra
                         Console.ReadKey();
                         break;
 
-                        // Optie 1.4 : Terug naar hoofdmenu
                     case "4":
+                        // Optie 1.4 : Dier toevoegen aan verblijf
+
+                        Console.Clear();
+                        if (dieren.Count == 0)
+                        {
+                            Console.WriteLine("Er zijn geen dieren om te verwijderen.");
+                            break;
+                        }
+
+                        for (int i = 0; i < dieren.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {dieren[i].naam} ({dieren[i].soort})");
+                        }
+                        Console.Write("Nummer van dier: ");
+
+                        if (!int.TryParse(Console.ReadLine(), out int keuze2) || keuze2 < 1 || keuze2 > dieren.Count)
+                        {
+                            Console.WriteLine("Ongeldige keuze.");
+                            break;
+                        }
+
+                        Dier toevoegDier = dieren[keuze2 - 1];
+
+                        if (verblijven.Count == 0)
+                        {
+                            Console.WriteLine("Er zijn geen verblijven beschikbaar.");
+                            break;
+                        }
+
+                        for (int i = 0; i < verblijven.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {verblijven[i].naam}");
+                        }
+                        Console.WriteLine("Nummer van verblijf: ");
+
+                        if (!int.TryParse(Console.ReadLine(), out int keuze3) || keuze3 < 1 || keuze3 > verblijven.Count)
+                        {
+                            Console.WriteLine("Ongeldige keuze.");
+                            break;
+                        }
+                        Verblijf gekozenVerblijf = verblijven[keuze3 - 1];
+
+                        gekozenVerblijf.VoegDierToe(toevoegDier);
+                        Console.WriteLine($"Dier {toevoegDier.naam} succesvol toegevoegd aan verblijf {gekozenVerblijf.naam}.");
+                        Console.ReadKey();
+                        break;
+                    case "5":
+                        // Optie 1.5 : Terug naar hoofdmenu
                         running = false;
                         break;
                 }
@@ -169,6 +217,7 @@ namespace TechTerra
             bool running = true;
             while (running)
             {
+                Console.Clear();
                 Console.WriteLine("1. Verblijf Overzicht");
                 Console.WriteLine("2. Verblijf Toevoegen");
                 Console.WriteLine("3. Verblijf Verwijderen");
@@ -178,8 +227,9 @@ namespace TechTerra
                 switch (inputChoice)
                 {
                     case "1":
-						// Optie 3.1 : Verblijf overzicht
-						if (verblijven.Count == 0)
+                        // Optie 3.1 : Verblijf overzicht
+                        Console.Clear();
+                        if (verblijven.Count == 0)
 						{
 							Console.WriteLine("Er zijn geen verblijven in de lijst.");
 						}
@@ -191,7 +241,8 @@ namespace TechTerra
 								Console.WriteLine(verblijf.ToString());
 							}
 						}
-						break;
+                        Console.ReadKey();
+                        break;
                     case "2":
 						// Optie 3.2 : Verblijf toevoegen
 						Console.Clear();

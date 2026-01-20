@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechTerra.Models;
+using System.IO;
 
 namespace TechTerra.DataAcces
 {
@@ -19,9 +20,21 @@ namespace TechTerra.DataAcces
         //Constructor
         public DalSQL()
         {
-            serverName = "CASKA";
-            databaseName = "DBTechTerraZoo";
-            connectionString = $"Server={serverName};Database={databaseName};Trusted_Connection=True;TrustServerCertificate=True;";
+            string path = Path.Combine("DataAcces", "DBConfig.txt");
+            string[] lines = File.ReadAllLines(path);
+
+            string userId = lines[0];
+            string password = lines[1];
+
+            serverName = "techterra-de-planten.database.windows.net";
+            databaseName = "Techterra_De_Planten";
+            connectionString =
+                $"Server={serverName};" +
+                $"Database={databaseName};" +
+                $"User Id={userId};" +
+                $"Password={password};" +
+                $"Encrypt=True;" +
+                $"TrustServerCertificate=False;";
         }
 
 
@@ -108,6 +121,7 @@ namespace TechTerra.DataAcces
             }
             return verzorgers;
         }
+
 
         //public List<DierVoer> GetAllDierVoer()
         //{
