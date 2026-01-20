@@ -19,7 +19,7 @@ namespace TechTerra.DataAcces
         //Constructor
         public DalSQL()
         {
-            serverName = "LAPTOP-5FM0T3FM";
+            serverName = "CASKA";
             databaseName = "DBTechTerraZoo";
             connectionString = $"Server={serverName};Database={databaseName};Trusted_Connection=True;TrustServerCertificate=True;";
         }
