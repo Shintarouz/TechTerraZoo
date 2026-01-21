@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TechTerra.Models;
 using System.IO;
+using System.Data;
 
 namespace TechTerra.DataAcces
 {
@@ -17,7 +18,7 @@ namespace TechTerra.DataAcces
         private string databaseName;
         private string connectionString;
 
-        //Constructor
+        //Constructor voor online server
         public DalSQL()
         {
             string path = Path.Combine("DataAcces", "DBConfig.txt");
@@ -37,6 +38,13 @@ namespace TechTerra.DataAcces
                 $"TrustServerCertificate=False;";
         }
 
+        //// constructor voor Tony lokale database
+        //public DalSQL()
+        //{
+        //    serverName = "LAPTOP-5FM0T3FM";
+        //    databaseName = "TestTerraZoo";
+        //    connectionString = $"Server={serverName};Database={databaseName};Trusted_Connection = True; TrustServerCertificate = True; ";
+        //}
 
         // Haalt alle dieren op in de database en maakt er objecten van.
         public List<Dier> GetAllDieren()

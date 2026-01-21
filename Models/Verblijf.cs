@@ -61,6 +61,10 @@ namespace TechTerra.Models
             }
         }
 
+        public bool BevatDier(Dier dier)
+        {
+            return dierenInVerblijf.Contains(dier);
+        }
         public int AantalDieren()
         {
             return dierenInVerblijf.Count;
