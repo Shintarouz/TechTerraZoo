@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechTerra.Models;
+using System.IO;
+using System.Data;
 
 namespace TechTerra.DataAcces
 {
@@ -16,14 +18,33 @@ namespace TechTerra.DataAcces
         private string databaseName;
         private string connectionString;
 
-        //Constructor
+        //Constructor voor online server
         public DalSQL()
         {
-            serverName = "CASKA";
-            databaseName = "DBTechTerraZoo";
-            connectionString = $"Server={serverName};Database={databaseName};Trusted_Connection=True;TrustServerCertificate=True;";
+            string path = Path.Combine("DataAcces", "DBConfig.txt");
+            string[] lines = File.ReadAllLines(path);
+
+            string userId = lines[0];
+            string password = lines[1];
+
+            serverName = "techterra-de-planten.database.windows.net";
+            databaseName = "Techterra_De_Planten";
+            connectionString =
+                $"Server={serverName};" +
+                $"Database={databaseName};" +
+                $"User Id={userId};" +
+                $"Password={password};" +
+                $"Encrypt=True;" +
+                $"TrustServerCertificate=False;";
         }
 
+        //// constructor voor Tony lokale database
+        //public DalSQL()
+        //{
+        //    serverName = "LAPTOP-5FM0T3FM";
+        //    databaseName = "TestTerraZoo";
+        //    connectionString = $"Server={serverName};Database={databaseName};Trusted_Connection = True; TrustServerCertificate = True; ";
+        //}
 
         // Haalt alle dieren op in de database en maakt er objecten van.
         public List<Dier> GetAllDieren()
@@ -108,6 +129,7 @@ namespace TechTerra.DataAcces
             }
             return verzorgers;
         }
+
 
         //public List<DierVoer> GetAllDierVoer()
         //{

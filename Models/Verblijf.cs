@@ -61,42 +61,28 @@ namespace TechTerra.Models
             }
         }
 
+        public bool BevatDier(Dier dier)
+        {
+            return dierenInVerblijf.Contains(dier);
+        }
         public int AantalDieren()
         {
             return dierenInVerblijf.Count;
         }
 
-        //// Verwijder dier op index basis
-        //public bool VerwijderDierOpIndex(int index)
-        //{
-        //    if (index < 0 || index >= dierenInVerblijf.Count)
-        //        return false;
-
-        //    dierenInVerblijf.RemoveAt(index);
-        //    return true;
-        //}
-
 
         // Print informatie bij encapsulation
         public override string ToString()
         {
-            return $"DierID: {verblijfID}, Naam: {naam}, temperatuur : {temperatuur}, capaciteit: {capaciteit}, typeOmgeving: {typeOmgeving}";
-            //    string result = $"VerblijfID: {verblijfID}, Naam: {naam}, AantalDieren: {dierenInVerblijf.Count}\n";
-            //    result += "Dieren in verblijf:\n";
-
-            //    if (dierenInVerblijf.Count == 0)
-            //    {
-            //        result += "  (geen dieren)\n";
-            //    }
-            //    else
-            //    {
-            //        foreach (Dier dier in dierenInVerblijf)
-            //        {
-            //            result += "  - " + dier + "\n";
-            //        }
-            //    }
-            //    return result;
-            //}
+            if (dierenInVerblijf.Count == 0)
+            {
+                return $"VerblijfID: {verblijfID}, Naam: {naam}, AantalDieren: 0 (geen dieren)";
+            }
+            else
+            {
+                string dierenNamen = string.Join(", ", dierenInVerblijf.Select(d => d.naam));
+                return $"VerblijfID: {verblijfID}, Naam: {naam}, AantalDieren: {dierenInVerblijf.Count} (Dieren: {dierenNamen})";
+            }
         }
     }
 }
