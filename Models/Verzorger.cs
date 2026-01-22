@@ -8,8 +8,8 @@ namespace TechTerra.Models
 {
     class Verzorger
     {
-        public string naam;
-        public string verzorgerID;
+        public string verzorgerID { get; private set; }
+        public string naam { get; private set; }
         private List<Dier> toegewezenDieren;
 
         // Constructor
@@ -21,7 +21,7 @@ namespace TechTerra.Models
         }
 
         // Voeg dier toe aan verzorger
-        public void WijzigDierToe(Dier dier)
+        public void VoegDierToe(Dier dier)
         {
             toegewezenDieren.Add(dier);
         }
