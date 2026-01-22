@@ -66,17 +66,66 @@ namespace TechTerra.DataAcces
                         string soort = reader.GetString(2);
                         int leeftijd = reader.GetInt32(3);
 
+                        string verblijfID = reader.GetString(4);
+                        string verzorgerID = reader.GetString(5);
 
-                        Verblijf verblijf = null; // placeholder, vervang dit later
-                        Verzorger verzorger = null; // placeholder, vervang dit later
-                        // Eerst verblijven ophalen en daarna verzorger, pas als laatste dieren.
+                        Verblijf verblijf = GetVerblijf(verblijfID); // placeholder, vervang dit later
+                        Verzorger verzorger = GetVerzorger(verzorgerID); // placeholder, vervang dit later
 
-                        Dier dier = new Dier(dierID, naam, soort, leeftijd, null, null);
+                        Dier dier = new Dier(dierID, naam, soort, leeftijd, verblijf, verzorger);
                         dieren.Add(dier);
                     }
                 }
             }
             return dieren;
+        }
+        public Verzorger GetVerzorger(string verzorgerID)
+        {
+            string query = "SELECT * FROM verzorger WHERE VerzorgerID = @VerzorgerID";
+            Verzorger verzorger = null;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@VerzorgerID", verzorgerID);
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string VerzorgerID = reader.GetString(0);
+                        string naam = reader.GetString(1);
+                        verzorger = new Verzorger(verzorgerID, naam);
+                    }
+                }
+            }
+            return verzorger;
+        }
+        public Verblijf GetVerblijf(string verblijfID)
+        {
+            string query = "SELECT * FROM verblijf WHERE VerblijfID = @verblijfID";
+            Verblijf verblijf = null;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@VerblijfID", verblijfID);
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string naam = reader.GetString(1);
+                        int temperatuur = reader.GetInt32(2);
+                        int capaciteit = reader.GetInt32(3);
+                        string typeOmgeving = reader.GetString(4);
+                        verblijf = new Verblijf(verblijfID, naam, temperatuur, capaciteit, typeOmgeving);
+                    }
+                }
+            }
+            return verblijf;
         }
 
         // Haalt alle verblijven op in de database en maakt er objecten van.

@@ -166,7 +166,7 @@ namespace TechTerra
                         keuzeVerblijf.VoegDierToe(nieuwDier);
                         keuzeVerzorger.VoegDierToe(nieuwDier);
 
-                        DalSQL.DBAddDier(nieuwDier); // doet het nog niet
+                        DalSQL.DBAddDier(nieuwDier); 
                         break;
 
                     case "3":
@@ -429,13 +429,13 @@ namespace TechTerra
 							break;
 						}
 
-						Console.WriteLine("Kies een dier om te verwijderen:");
+						Console.WriteLine("Kies een verblijf om te verwijderen:");
 
 						for (int i = 0; i < verblijven.Count; i++)
 						{
 							Console.WriteLine($"{i + 1}. {verblijven[i].naam}");
 						}
-						Console.Write("Nummer van dier: ");
+						Console.Write("Nummer van verblijf : ");
 
 						if (!int.TryParse(Console.ReadLine(), out int keuze) || keuze < 1 || keuze > verblijven.Count)
 						{
