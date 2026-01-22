@@ -474,12 +474,69 @@ namespace TechTerra
                 {
                     case "1":
                         // Optie 4.1 Verzorger overzicht
+                        Console.Clear();
+                        if (verzorgers.Count == 0)
+                        {
+                            Console.WriteLine("Er zijn geen verzorgers in de lijst.");
+                        }
+
+                        else
+                        {
+                            foreach (Verzorger verzorger in verzorgers)
+                            {
+                                Console.WriteLine(verzorger.ToString());
+                            }
+                        }
+                        Console.ReadKey();
                         break;
                     case "2":
                         // Optie 4.2 Verzoger toevoegen
+                        Console.Clear();
+
+                        Console.WriteLine("Nieuwe verzorger toevoegen");
+
+                        Console.Write("VerzorgerID :");
+                        string verzorgerID = Console.ReadLine();
+
+                        Console.Write("Naam : ");
+                        string naam = Console.ReadLine();
+
+                        Verzorger nieuweVerzorger = new Verzorger(verzorgerID, naam);
+                        verzorgers.Add(nieuweVerzorger);
+
+                        DalSQL.DBAddVerzorger(nieuweVerzorger); // voegt verzorger to aan de database
+
                         break;
                     case "3":
                         // Optie 4.3 Verzorger verwijderen
+                        Console.Clear();
+
+                        if (verzorgers.Count == 0)
+                        {
+                            Console.WriteLine("Er zijn geen verzorgers om te verwijderen.");
+                            break;
+                        }
+
+                        Console.WriteLine("Kies een verzorger om te verwijderen:");
+
+                        for (int i = 0; i < verzorgers.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {verzorgers[i].naam}");
+                        }
+                        Console.Write("Nummer van verzorger: ");
+
+                        if (!int.TryParse(Console.ReadLine(), out int keuze) || keuze < 1 || keuze > verzorgers.Count)
+                        {
+                            Console.WriteLine("Ongeldige keuze.");
+                            break;
+                        }
+
+                        Verzorger verwijderVerzorger = verzorgers[keuze - 1];
+                        verzorgers.RemoveAt(keuze - 1);
+
+
+                        Console.WriteLine($"Verzorger {verwijderVerzorgers.naam} succesvol verwijderd.");
+                        Console.ReadKey();
                         break;
                         // Optie 4.4 Terug naar hoofdmenu
                     case "4":
