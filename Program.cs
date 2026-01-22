@@ -475,7 +475,7 @@ namespace TechTerra
                     case "1":
                         // Optie 4.1 Verzorger overzicht
                         Console.Clear();
-                        if (verblijven.Count == 0)
+                        if (verzorgers.Count == 0)
                         {
                             Console.WriteLine("Er zijn geen verzorgers in de lijst.");
                         }
