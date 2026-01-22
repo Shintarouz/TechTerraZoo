@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TechTerra.Models;
 using System.IO;
 using System.Data;
+using System.Windows.Forms;
 
 namespace TechTerra.DataAcces
 {
@@ -16,7 +17,7 @@ namespace TechTerra.DataAcces
         //Eigenschappen
         private string serverName;
         private string databaseName;
-        private string connectionString;
+        private static string connectionString;
 
         //Constructor voor online server
         public DalSQL()
@@ -130,6 +131,64 @@ namespace TechTerra.DataAcces
             return verzorgers;
         }
 
+        // Dier toevoegen aan de database
+        public static void DBAddDier(Dier dier)
+        {
+            string query = @"INSERT INTO Dier(DierID, Naam, Soort, Leeftijd, VerblijfID, VerzorgerID) 
+                            VALUES(@DierID, @Naam, @Soort, @Leeftijd, @VerblijfID, @VerzorgerID)";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@DierID", dier.dierID);
+                command.Parameters.AddWithValue("@Naam", dier.naam);
+                command.Parameters.AddWithValue("@Soort", dier.soort);
+                command.Parameters.AddWithValue("@Leeftijd", dier.leeftijd);
+
+                command.Parameters.AddWithValue("@verblijfID", dier.inVerblijf.verblijfID);
+                command.Parameters.AddWithValue("@verzorgerID", dier.verzorger.verzorgerID);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+        
+        // Verzorger toevoegen aan de database
+        public static void DBAddVerzorger(Verzorger verzorger)
+        {
+            string query = @"INSERT INTO Verzorger(verzorgerID, Naam)
+                           VALUES(@verzorgerID, @Naam)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@verzorgerID", verzorger.verzorgerID);
+                command.Parameters.AddWithValue("@Naam", verzorger.naam);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+
+            }
+        }
+
+        // Verblijf toevoegen aan de database
+        public static void DBAddVerblijf(Verblijf verblijf)
+        {
+            string query = @"INSERT INTO Verblijf(VerblijfID, Naam, Temperatuur, Capaciteit, TypeOmgeving)
+                           VALUES(@VerblijfID, @Naam, @Temperatuur, @Temperatuur, @TypeOmgeving)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@VerblijfID", verblijf.verblijfID);
+                command.Parameters.AddWithValue("@Naam", verblijf.naam);
+                command.Parameters.AddWithValue("@Temperatuur", verblijf.temperatuur);
+                command.Parameters.AddWithValue("@Capaciteit", verblijf.capaciteit);
+                command.Parameters.AddWithValue("@TypeOmgeving", verblijf.typeOmgeving);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
 
         //public List<DierVoer> GetAllDierVoer()
         //{

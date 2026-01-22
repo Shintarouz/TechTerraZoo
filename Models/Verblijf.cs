@@ -10,12 +10,12 @@ namespace TechTerra.Models
     class Verblijf
     {
 
-        private string verblijfID;
-        public string naam;
+        public string verblijfID { get; private set; }
+        public string naam { get; private set; }
         // private int aantalDieren;
-        private decimal temperatuur;
-        private int capaciteit;
-        private string typeOmgeving;
+        public decimal temperatuur { get; private set; }
+        public int capaciteit { get; private set; }
+        public string typeOmgeving { get; private set; }
 
         private List<Dier> dierenInVerblijf;
 
