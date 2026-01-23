@@ -13,10 +13,10 @@ namespace TechTerra.Models
         private List<Dier> toegewezenDieren;
 
         // Constructor
-        public Verzorger(string naam, string verzorgerID)
+        public Verzorger(string verzorgerID,string naam)
         {
-            this.naam = naam;
             this.verzorgerID = verzorgerID;
+            this.naam = naam;
             toegewezenDieren = new List<Dier>();
         }
 

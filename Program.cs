@@ -535,7 +535,7 @@ namespace TechTerra
                         verzorgers.RemoveAt(keuze - 1);
 
 
-                        Console.WriteLine($"Verzorger {verwijderVerzorgers.naam} succesvol verwijderd.");
+                        Console.WriteLine($"Verzorger {verwijderVerzorger.naam} succesvol verwijderd.");
                         Console.ReadKey();
                         break;
                         // Optie 4.4 Terug naar hoofdmenu
