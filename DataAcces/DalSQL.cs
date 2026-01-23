@@ -39,11 +39,11 @@ namespace TechTerra.DataAcces
                 $"TrustServerCertificate=False;";
         }
 
-        //// constructor voor Tony lokale database
+        //// constructor voor lokale database, VERANDER DE WAARDES OM TE GEBRUIKEN!!
         //public DalSQL()
         //{
         //    serverName = "LAPTOP-5FM0T3FM";
-        //    databaseName = "TestTerraZoo";
+        //    databaseName = "TestTerraZoo"; 
         //    connectionString = $"Server={serverName};Database={databaseName};Trusted_Connection = True; TrustServerCertificate = True; ";
         //}
 
@@ -172,7 +172,7 @@ namespace TechTerra.DataAcces
                     {
                         string verzorgerID = reader.GetString(0);
                         string naam = reader.GetString(1);
-                        Verzorger verzorger = new Verzorger(naam, verzorgerID);
+                        Verzorger verzorger = new Verzorger(verzorgerID, naam);
                         verzorgers.Add(verzorger);
                     }
                 }
@@ -204,6 +204,7 @@ namespace TechTerra.DataAcces
         // Verzorger toevoegen aan de database
         public static void DBAddVerzorger(Verzorger verzorger)
         {
+            // INSERT dierID weglaten bij invoer en databse auto laten generaten.
             string query = @"INSERT INTO Verzorger(verzorgerID, Naam)
                            VALUES(@verzorgerID, @Naam)";
 

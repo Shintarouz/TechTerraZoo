@@ -8,7 +8,7 @@ namespace TechTerra.Models
 {
     class Dier
     {
-        public string dierID { get; private set; }// CODE IS NIET GE-ENCAPSULEERD VOOR PRINT REDENEN!!
+        public string dierID { get; private set; }
         public string naam { get; private set; }
         public string soort { get; private set; }
         public int leeftijd { get; private set; }
@@ -38,10 +38,14 @@ namespace TechTerra.Models
 
         public override string ToString()
         {
-            return $"DierID: {dierID}, Naam: {naam}, Soort: {soort}, Leeftijd: {leeftijd}";
-
-            //Verblijf : {inVerblijf.ToString()}
-            
+            if (inVerblijf != null || verzorger != null)
+            {
+                return $"DierID: {dierID}, Naam: {naam}, Soort: {soort}, Leeftijd: {leeftijd}, Verblijf : {inVerblijf.naam}, Verzorger : {verzorger.naam}";
+            }
+            else
+            {
+                return $"DierID: {dierID}, Naam: {naam}, Soort: {soort}, Leeftijd: {leeftijd}";
+            }
         }
     }
 }

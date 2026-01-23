@@ -65,6 +65,7 @@ namespace TechTerra.Models
         {
             return dierenInVerblijf.Contains(dier);
         }
+
         public int AantalDieren()
         {
             return dierenInVerblijf.Count;
