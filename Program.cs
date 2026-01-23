@@ -76,7 +76,8 @@ namespace TechTerra
                 Console.WriteLine("3. Dier Verwijderen");
                 Console.WriteLine("4. Dier Toevoegen aan Verblijf");
                 Console.WriteLine("5. Dier Toevoegen aan Verzorger");
-                Console.WriteLine("6. Terug");
+				Console.WriteLine("6. Dier Zoeken");
+				Console.WriteLine("7. Terug");
                 Console.Write("Keuze : ");
                 string inputChoice = Convert.ToString(Console.ReadLine());
                 switch (inputChoice)
@@ -329,8 +330,12 @@ namespace TechTerra
                         Console.WriteLine($"Dier {verzorgToevoegDier.naam} succesvol toegevoegd aan Verzorger {gekozenVerzorger.naam}.");
                         Console.ReadKey();
                         break;
+					case "6":
+						// Optie 1.6 : Dier Zoeken
+						ZoekDier();
+						break;
 
-                    case "6":
+					case "7":
                         // Optie 1.6 : Terug naar hoofdmenu
                         running = false;
                         break;
@@ -339,7 +344,104 @@ namespace TechTerra
             }
         }
 
-        public static void VoerSchemaMenu()
+		public static void ZoekDier()
+		{
+			Console.Clear();
+
+			if (dieren.Count == 0)
+			{
+				Console.WriteLine("Er zijn geen dieren om te zoeken.");
+				Console.ReadKey();
+				return;
+			}
+
+			Console.WriteLine("=== DIER ZOEKEN ===");
+			Console.WriteLine("1. Zoeken op Naam");
+			Console.WriteLine("2. Zoeken op Soort");
+			Console.WriteLine("3. Terug");
+			Console.Write("Keuze : ");
+
+			string keuze = Console.ReadLine();
+
+			switch (keuze)
+			{
+				case "1":
+					// Zoeken op naam
+					Console.Clear();
+					Console.Write("Voer naam in (of deel van naam) : ");
+					string zoekNaam = Console.ReadLine().ToLower();
+
+					List<Dier> gevondenOpNaam = dieren
+						.Where(d => d.naam.ToLower().Contains(zoekNaam))
+						.ToList();
+
+					ToonZoekResultaten(gevondenOpNaam, "naam", zoekNaam);
+					break;
+
+				case "2":
+					// Zoeken op soort
+					Console.Clear();
+					Console.Write("Voer soort in (of deel van soort) : ");
+					string zoekSoort = Console.ReadLine().ToLower();
+
+					List<Dier> gevondenOpSoort = dieren
+						.Where(d => d.soort.ToLower().Contains(zoekSoort))
+						.ToList();
+
+					ToonZoekResultaten(gevondenOpSoort, "soort", zoekSoort);
+					break;
+
+				case "3":
+					// Terug
+					return;
+
+				default:
+					Console.WriteLine("Ongeldige keuze.");
+					Console.ReadKey();
+					break;
+			}
+		}
+
+		private static void ToonZoekResultaten(List<Dier> resultaten, string zoekType, string zoekTerm)
+		{
+			Console.Clear();
+			Console.WriteLine($"=== ZOEKRESULTATEN VOOR '{zoekTerm}' (zoeken op {zoekType}) ===\n");
+
+			if (resultaten.Count == 0)
+			{
+				Console.WriteLine($"Geen dieren gevonden met {zoekType} '{zoekTerm}'.");
+			}
+			else
+			{
+				Console.WriteLine($"Gevonden: {resultaten.Count} dier(en)\n");
+
+				foreach (Dier dier in resultaten)
+				{
+					Console.WriteLine("─────────────────────────────────────────");
+					Console.WriteLine($"Naam      : {dier.naam}");
+					Console.WriteLine($"Soort     : {dier.soort}");
+					Console.WriteLine($"DierID    : {dier.dierID}");
+					Console.WriteLine($"Leeftijd  : {dier.leeftijd} jaar");
+
+					if (dier.inVerblijf != null)
+					{
+						Console.WriteLine($"Verblijf  : {dier.inVerblijf.naam}");
+					}
+
+					if (dier.verzorger != null)
+					{
+						Console.WriteLine($"Verzorger : {dier.verzorger.naam}");
+					}
+
+					Console.WriteLine();
+				}
+				Console.WriteLine("─────────────────────────────────────────");
+			}
+
+			Console.WriteLine("\nDruk op een toets om terug te gaan...");
+			Console.ReadKey();
+		}
+		public static void VoerSchemaMenu()
         {
             bool running = true;
             while (running)
@@ -535,7 +637,11 @@ namespace TechTerra
                         verzorgers.RemoveAt(keuze - 1);
 
 
+<<<<<<< HEAD
                         Console.WriteLine($"Verzorger {verwijderVerzorger.naam} succesvol verwijderd.");
+=======
+                        Console.WriteLine($"Verzorger {verwijderVerzorger} succesvol verwijderd.");
+>>>>>>> bbcff81bfb19f68014c8c62b5fdfa1f5cb749394
                         Console.ReadKey();
                         break;
                         // Optie 4.4 Terug naar hoofdmenu
