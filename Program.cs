@@ -27,8 +27,11 @@ namespace TechTerra
             while (running)
             {
                 Console.Clear();
-                Console.WriteLine("Hoofdmenu ----------------");
-                Console.WriteLine("1. Dieren");
+				Console.WriteLine("╔════════════════════════════════════════╗");
+				Console.WriteLine("║       TECHTERRA DIERENTUIN SYSTEEM     ║");
+				Console.WriteLine("╚════════════════════════════════════════╝");
+				Console.WriteLine();
+				Console.WriteLine("1. Dieren");
                 Console.WriteLine("2. Voerschema");
                 Console.WriteLine("3. Verblijven");
                 Console.WriteLine("4. Verzorgers");
@@ -72,24 +75,31 @@ namespace TechTerra
             while (running)
             {
                 Console.Clear();
-                Console.WriteLine("1. Dier Overzicht");
+				Console.WriteLine("╔════════════════════════════════════════╗");
+				Console.WriteLine("║            DIEREN BEHEER               ║");
+				Console.WriteLine("╚════════════════════════════════════════╝");
+				Console.WriteLine();
+				Console.WriteLine("1. Dier Overzicht");
                 Console.WriteLine("2. Dier Toevoegen");
                 Console.WriteLine("3. Dier Verwijderen");
                 Console.WriteLine("4. Dier Toevoegen aan Verblijf");
                 Console.WriteLine("5. Dier Toevoegen aan Verzorger");
-				Console.WriteLine("6. Dier Zoeken");
-				Console.WriteLine("7. Terug naar hoofdmenu");
+                Console.WriteLine("6. Dier Zoeken");
+                Console.WriteLine("7. Terug naar hoofdmenu");
                 Console.Write("Keuze : ");
-                
+
                 string inputChoice = Convert.ToString(Console.ReadLine());
                 switch (inputChoice)
                 {
                     case "1":
                         // Optie 1.1 : overzicht van dieren in de lijst.
                         Console.Clear();
-
-                        // Controleren of er dieren zijn.
-                        if (dieren.Count == 0 )
+						Console.WriteLine("╔════════════════════════════════════════╗");
+						Console.WriteLine("║         OVERZICHT VAN DIEREN           ║");
+						Console.WriteLine("╚════════════════════════════════════════╝");
+						Console.WriteLine();
+						// Controleren of er dieren zijn.
+						if (dieren.Count == 0)
                         {
                             Console.WriteLine("Er zijn geen dieren in de lijst.");
                         }
@@ -104,89 +114,157 @@ namespace TechTerra
                         Console.ReadKey();
                         break;
 
-                    case "2":
-                        // Optie 1.2 : Nieuw dier toevoegen
-                        Console.Clear();
-                        Console.WriteLine("Nieuw dier toevoegen");
+					case "2":
+						// Optie 1.2 : Nieuw dier toevoegen
+						Console.Clear();
 
-                        // Invoer gegevens van nieuw dier invoeren en 
-                        // converten in het geval van andere datatypen.
-                        Console.Write("DierID :");
-                        string id = Convert.ToString(Console.ReadLine());
+						// MOOIE HEADER
+						Console.WriteLine("╔════════════════════════════════════════╗");
+						Console.WriteLine("║         NIEUW DIER TOEVOEGEN           ║");
+						Console.WriteLine("╚════════════════════════════════════════╝");
+						Console.WriteLine();
 
-                        Console.Write("Naam : ");
-                        string naam = Convert.ToString(Console.ReadLine());
+						// STAP 1: Naam invoeren
+						Console.WriteLine("STAP 1: Voer de naam van het dier in");
+						Console.WriteLine("─────────────────────────────────────────");
+						Console.Write("Naam : ");
+						string naam = Console.ReadLine();
 
-                        Console.Write("Soort : ");
-                        string soort = Convert.ToString(Console.ReadLine());
+						// Check of naam niet leeg is
+						if (string.IsNullOrWhiteSpace(naam))
+						{
+							Console.WriteLine("\n✗ Fout: Naam mag niet leeg zijn.");
+							Console.WriteLine("Druk op een toets om terug te gaan...");
+							Console.ReadKey();
+							break;
+						}
 
-                        Console.Write("Leeftijd : ");
-                        int leeftijd = Convert.ToInt32(Console.ReadLine());
+						// STAP 2: Soort invoeren
+						Console.WriteLine("\nSTAP 2: Voer de soort van het dier in");
+						Console.WriteLine("─────────────────────────────────────────");
+						Console.Write("Soort : ");
+						string soort = Console.ReadLine();
 
-                        // Controleren of er verblijven zijn.
-                        if (verblijven.Count == 0)
-                        {
-                            Console.WriteLine("Er zijn geen verblijven beschikbaar.");
-                            break;
-                        }
+						// Check of soort niet leeg is
+						if (string.IsNullOrWhiteSpace(soort))
+						{
+							Console.WriteLine("\n✗ Fout: Soort mag niet leeg zijn.");
+							Console.WriteLine("Druk op een toets om terug te gaan...");
+							Console.ReadKey();
+							break;
+						}
 
-                        // Verblijven tonen.
-                        for (int i = 0; i < verblijven.Count; i++)
-                        {
-                            Console.WriteLine($"{i + 1}. {verblijven[i].naam}");
-                        }
+						// STAP 3: Leeftijd invoeren
+						Console.WriteLine("\nSTAP 3: Voer de leeftijd van het dier in");
+						Console.WriteLine("─────────────────────────────────────────");
+						Console.Write("Leeftijd (in jaren) : ");
 
-                        // Verblijfkeuze kiezen en valideren.
-                        Console.Write("Kies een nummer van verblijf: ");
-                        if (!int.TryParse(Console.ReadLine(), out int verblijfKeuze) || verblijfKeuze < 1 || verblijfKeuze > verblijven.Count)
-                        {
-                            Console.WriteLine("Ongeldige keuze.");
-                            break;
-                        }
+						// Check of leeftijd een geldig getal is
+						if (!int.TryParse(Console.ReadLine(), out int leeftijd) || leeftijd < 0)
+						{
+							Console.WriteLine("\n✗ Fout: Ongeldige leeftijd. Voer een geldig getal in.");
+							Console.WriteLine("Druk op een toets om terug te gaan...");
+							Console.ReadKey();
+							break;
+						}
 
-                        // Verblijf assignen.
-                        Verblijf keuzeVerblijf = verblijven[verblijfKeuze - 1];
+						// STAP 4: Verblijf kiezen
+						Console.WriteLine("\nSTAP 4: Kies een verblijf voor het dier");
+						Console.WriteLine("─────────────────────────────────────────");
 
-                        // Controleren of er verzorgers zijn.
-                        if (verzorgers.Count == 0)
-                        {
-                            Console.WriteLine("Er zijn geen verzorgers beschikbaar.");
-                            break;
-                        }
+						if (verblijven.Count == 0)
+						{
+							Console.WriteLine("\n✗ Er zijn geen verblijven beschikbaar.");
+							Console.WriteLine("Maak eerst een verblijf aan.");
+							Console.WriteLine("\nDruk op een toets om terug te gaan...");
+							Console.ReadKey();
+							break;
+						}
 
-                        // Verzorgers tonen.
-                        for (int i = 0; i < verzorgers.Count; i++)
-                        {
-                            Console.WriteLine($"{i + 1}. {verzorgers[i].naam}");
-                        }
+						Console.WriteLine("Beschikbare verblijven:\n");
+						for (int i = 0; i < verblijven.Count; i++)
+						{
+							Console.WriteLine($"  {i + 1}. {verblijven[i].naam}");
+						}
 
-                        // Verzorgerkeuze kiezen en valideren.
-                        Console.Write("Kies een nummer van verzorger : ");
-                        if (!int.TryParse(Console.ReadLine(), out int verzorgerKeuze) || verzorgerKeuze < 1 || verzorgerKeuze > verblijven.Count)
-                        {
-                            Console.WriteLine("Ongeldige keuze.");
-                            break;
-                        }
+						Console.Write("\nKies het nummer van het verblijf : ");
 
-                        // Verzorger assignen.
-                        Verzorger keuzeVerzorger = verzorgers[verzorgerKeuze - 1];
+						if (!int.TryParse(Console.ReadLine(), out int verblijfKeuze) || verblijfKeuze < 1 || verblijfKeuze > verblijven.Count)
+						{
+							Console.WriteLine("\n✗ Ongeldige keuze.");
+							Console.WriteLine("Druk op een toets om terug te gaan...");
+							Console.ReadKey();
+							break;
+						}
 
-                        // Nieuw dier aanmaken met de ingevulde waardes en toevoegen aan dieren lijst.
-                        Dier nieuwDier = new Dier(id, naam, soort, leeftijd, keuzeVerblijf, keuzeVerzorger);
-                        dieren.Add(nieuwDier);
+						Verblijf keuzeVerblijf = verblijven[verblijfKeuze - 1];
 
-                        // Verblijf en Verzorger in de code koppelen aan het dier.
-                        keuzeVerblijf.VoegDierToe(nieuwDier);
-                        keuzeVerzorger.VoegDierToe(nieuwDier);
+						// STAP 5: Verzorger kiezen
+						Console.WriteLine("\nSTAP 5: Kies een verzorger voor het dier");
+						Console.WriteLine("─────────────────────────────────────────");
 
-                        // Nieuw dier aanmaken in de database.
-                        DalSQL.DBAddDier(nieuwDier); 
-                        break;
+						if (verzorgers.Count == 0)
+						{
+							Console.WriteLine("\n✗ Er zijn geen verzorgers beschikbaar.");
+							Console.WriteLine("Maak eerst een verzorger aan.");
+							Console.WriteLine("\nDruk op een toets om terug te gaan...");
+							Console.ReadKey();
+							break;
+						}
 
-                    case "3":
+						Console.WriteLine("Beschikbare verzorgers:\n");
+						for (int i = 0; i < verzorgers.Count; i++)
+						{
+							Console.WriteLine($"  {i + 1}. {verzorgers[i].naam}");
+						}
+
+						Console.Write("\nKies het nummer van de verzorger : ");
+
+						if (!int.TryParse(Console.ReadLine(), out int verzorgerKeuze) || verzorgerKeuze < 1 || verzorgerKeuze > verzorgers.Count)
+						{
+							Console.WriteLine("\n✗ Ongeldige keuze.");
+							Console.WriteLine("Druk op een toets om terug te gaan...");
+							Console.ReadKey();
+							break;
+						}
+
+						Verzorger keuzeVerzorger = verzorgers[verzorgerKeuze - 1];
+
+						// ✨ AUTOMATISCH ID GENEREREN (GEEN INVOER MEER!)
+						string id = GenereerDierID();
+
+						// Dier aanmaken en toevoegen
+						Dier nieuwDier = new Dier(id, naam, soort, leeftijd, keuzeVerblijf, keuzeVerzorger);
+						dieren.Add(nieuwDier);
+
+						keuzeVerblijf.VoegDierToe(nieuwDier);
+						keuzeVerzorger.VoegDierToe(nieuwDier);
+
+						DalSQL.DBAddDier(nieuwDier);
+
+						// Succesbericht
+						Console.WriteLine("\n╔════════════════════════════════════════╗");
+						Console.WriteLine("║     ✓ DIER SUCCESVOL TOEGEVOEGD       ║");
+						Console.WriteLine("╚════════════════════════════════════════╝");
+						Console.WriteLine($"\nDier ID   : {id}");
+						Console.WriteLine($"Naam      : {naam}");
+						Console.WriteLine($"Soort     : {soort}");
+						Console.WriteLine($"Leeftijd  : {leeftijd} jaar");
+						Console.WriteLine($"Verblijf  : {keuzeVerblijf.naam}");
+						Console.WriteLine($"Verzorger : {keuzeVerzorger.naam}");
+						Console.WriteLine("\nDruk op een toets om terug te gaan...");
+						Console.ReadKey();
+						break;
+
+					case "3":
                         // Optie 1.3 : Dier verwijderen
                         Console.Clear();
-                        if (dieren.Count == 0)
+						Console.WriteLine("╔════════════════════════════════════════╗");
+						Console.WriteLine("║           DIER VERWIJDEREN             ║");
+						Console.WriteLine("╚════════════════════════════════════════╝");
+						Console.WriteLine();
+
+						if (dieren.Count == 0)
                         {
                             Console.WriteLine("Er zijn geen dieren om te verwijderen.");
                             break;
@@ -219,7 +297,12 @@ namespace TechTerra
 
                         // Nieuwe Lijst aanmaken met dieren, en deze vullen met dieren die niet in een verblijf zitten.
                         Console.Clear();
-                        List<Dier> beschikbareDieren = new List<Dier>();
+						Console.WriteLine("╔════════════════════════════════════════╗");
+						Console.WriteLine("║    DIER TOEVOEGEN AAN VERBLIJF         ║");
+						Console.WriteLine("╚════════════════════════════════════════╝");
+						Console.WriteLine();
+
+						List<Dier> beschikbareDieren = new List<Dier>();
                         foreach (Dier dier in dieren)
                         {
                             bool zitInVerblijf = false;
@@ -231,7 +314,7 @@ namespace TechTerra
                                     zitInVerblijf = true;
                                     break;
                                 }
-                            }    
+                            }
                             if (!zitInVerblijf)
                             {
                                 beschikbareDieren.Add(dier);
@@ -292,7 +375,12 @@ namespace TechTerra
                     case "5":
                         // Optie 1.5 : Dier toevoegen aan Verzorger
                         Console.Clear();
-                        if (dieren.Count == 0)
+						Console.WriteLine("╔════════════════════════════════════════╗");
+						Console.WriteLine("║    DIER TOEVOEGEN AAN VERZORGER        ║");
+						Console.WriteLine("╚════════════════════════════════════════╝");
+						Console.WriteLine();
+
+						if (dieren.Count == 0)
                         {
                             Console.WriteLine("Er zijn geen dieren om te kiezen.");
                             break;
@@ -343,12 +431,12 @@ namespace TechTerra
                         Console.WriteLine($"Dier {verzorgToevoegDier.naam} succesvol toegevoegd aan Verzorger {gekozenVerzorger.naam}.");
                         Console.ReadKey();
                         break;
-					case "6":
-						// Optie 1.6 : Dier Zoeken
-						ZoekDier();
-						break;
+                    case "6":
+                        // Optie 1.6 : Dier Zoeken
+                        ZoekDier();
+                        break;
 
-					case "7":
+                    case "7":
                         // Optie 1.6 : Terug naar hoofdmenu
                         running = false;
                         break;
@@ -357,7 +445,7 @@ namespace TechTerra
             }
         }
 
-		public static void VoerSchemaMenu()
+        public static void VoerSchemaMenu()
         {
             bool running = true;
             while (running)
@@ -385,7 +473,11 @@ namespace TechTerra
             while (running)
             {
                 Console.Clear();
-                Console.WriteLine("1. Verblijf Overzicht");
+				Console.WriteLine("╔════════════════════════════════════════╗");
+				Console.WriteLine("║         VERBLIJF BEHEER                ║");
+				Console.WriteLine("╚════════════════════════════════════════╝");
+				Console.WriteLine();
+				Console.WriteLine("1. Verblijf Overzicht");
                 Console.WriteLine("2. Verblijf Toevoegen");
                 Console.WriteLine("3. Verblijf Verwijderen");
                 Console.WriteLine("4. Terug naar hoofdmenu");
@@ -396,78 +488,83 @@ namespace TechTerra
                     case "1":
                         // Optie 3.1 : Verblijf overzicht
                         Console.Clear();
-                        if (verblijven.Count == 0)
-						{
-							Console.WriteLine("Er zijn geen verblijven in de lijst.");
-						}
+						Console.WriteLine("╔════════════════════════════════════════╗");
+						Console.WriteLine("║      OVERZICHT VAN VERBLIJVEN          ║");
+						Console.WriteLine("╚════════════════════════════════════════╝");
+						Console.WriteLine();
 
-						else
-						{
-							foreach (Verblijf verblijf in verblijven)
-							{
-								Console.WriteLine(verblijf.ToString());
-							}
-						}
+						if (verblijven.Count == 0)
+                        {
+                            Console.WriteLine("Er zijn geen verblijven in de lijst.");
+                        }
+
+                        else
+                        {
+                            foreach (Verblijf verblijf in verblijven)
+                            {
+                                Console.WriteLine(verblijf.ToString());
+                            }
+                        }
                         Console.ReadKey();
                         break;
                     case "2":
-						// Optie 3.2 : Verblijf toevoegen
-						Console.Clear();
+                        // Optie 3.2 : Verblijf toevoegen
+                        Console.Clear();
 
-						Console.WriteLine("Nieuw verblijf toevoegen");
+                        Console.WriteLine("Nieuw verblijf toevoegen");
 
-						Console.Write("VerblijfID :");
-						string verblijfID = Console.ReadLine();
+                        Console.Write("VerblijfID :");
+                        string verblijfID = Console.ReadLine();
 
-						Console.Write("Naam : ");
-						string naam = Console.ReadLine();
+                        Console.Write("Naam : ");
+                        string naam = Console.ReadLine();
 
-						Console.Write("Temperatuur : ");
-						decimal temperatuur = Convert.ToDecimal(Console.ReadLine());
+                        Console.Write("Temperatuur : ");
+                        decimal temperatuur = Convert.ToDecimal(Console.ReadLine());
 
-						Console.Write("Capaciteit : ");
-						int capaciteit = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Capaciteit : ");
+                        int capaciteit = Convert.ToInt32(Console.ReadLine());
 
-						Console.Write("Type omgeving : ");
-						string typeOmgeving = Console.ReadLine();
+                        Console.Write("Type omgeving : ");
+                        string typeOmgeving = Console.ReadLine();
 
-						Verblijf nieuwVerblijf = new Verblijf(verblijfID, naam, temperatuur, capaciteit, typeOmgeving);
-						verblijven.Add(nieuwVerblijf);
+                        Verblijf nieuwVerblijf = new Verblijf(verblijfID, naam, temperatuur, capaciteit, typeOmgeving);
+                        verblijven.Add(nieuwVerblijf);
 
                         DalSQL.DBAddVerblijf(nieuwVerblijf); // voegt verblijf to aan de database
 
-						break;
+                        break;
                     case "3":
-						// Optie 3.3 : Verblijf verwijderen
-						Console.Clear();
+                        // Optie 3.3 : Verblijf verwijderen
+                        Console.Clear();
 
-						if (verblijven.Count == 0)
-						{
-							Console.WriteLine("Er zijn geen verblijven om te verwijderen.");
-							break;
-						}
+                        if (verblijven.Count == 0)
+                        {
+                            Console.WriteLine("Er zijn geen verblijven om te verwijderen.");
+                            break;
+                        }
 
-						Console.WriteLine("Kies een verblijf om te verwijderen:");
+                        Console.WriteLine("Kies een verblijf om te verwijderen:");
 
-						for (int i = 0; i < verblijven.Count; i++)
-						{
-							Console.WriteLine($"{i + 1}. {verblijven[i].naam}");
-						}
-						Console.Write("Nummer van verblijf : ");
+                        for (int i = 0; i < verblijven.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {verblijven[i].naam}");
+                        }
+                        Console.Write("Nummer van verblijf : ");
 
-						if (!int.TryParse(Console.ReadLine(), out int keuze) || keuze < 1 || keuze > verblijven.Count)
-						{
-							Console.WriteLine("Ongeldige keuze.");
-							break;
-						}
+                        if (!int.TryParse(Console.ReadLine(), out int keuze) || keuze < 1 || keuze > verblijven.Count)
+                        {
+                            Console.WriteLine("Ongeldige keuze.");
+                            break;
+                        }
 
-						Verblijf verwijderVerblijven = verblijven[keuze - 1];
-						verblijven.RemoveAt(keuze - 1);
+                        Verblijf verwijderVerblijven = verblijven[keuze - 1];
+                        verblijven.RemoveAt(keuze - 1);
 
 
-						Console.WriteLine($"Verblijf {verwijderVerblijven.naam} succesvol verwijderd.");
-						Console.ReadKey();
-						break;
+                        Console.WriteLine($"Verblijf {verwijderVerblijven.naam} succesvol verwijderd.");
+                        Console.ReadKey();
+                        break;
                     case "4":
                         // Optie 3.4 : Terug naar hoofdmenu
                         running = false;
@@ -482,7 +579,11 @@ namespace TechTerra
             while (running)
             {
                 Console.Clear();
-                Console.WriteLine("1. Verzorger Overzicht");
+				Console.WriteLine("╔════════════════════════════════════════╗");
+				Console.WriteLine("║        VERZORGER BEHEER                ║");
+				Console.WriteLine("╚════════════════════════════════════════╝");
+				Console.WriteLine();
+				Console.WriteLine("1. Verzorger Overzicht");
                 Console.WriteLine("2. Verzorger Toevoegen");
                 Console.WriteLine("3. Verzorger Verwijderen");
                 Console.WriteLine("4. Terug naar hoofdmenu");
@@ -493,7 +594,11 @@ namespace TechTerra
                     case "1":
                         // Optie 4.1 Verzorger overzicht
                         Console.Clear();
-                        if (verzorgers.Count == 0)
+						Console.WriteLine("╔════════════════════════════════════════╗");
+						Console.WriteLine("║      OVERZICHT VAN VERZORGERS          ║");
+						Console.WriteLine("╚════════════════════════════════════════╝");
+						Console.WriteLine();
+						if (verzorgers.Count == 0)
                         {
                             Console.WriteLine("Er zijn geen verzorgers in de lijst.");
                         }
@@ -556,7 +661,7 @@ namespace TechTerra
                         Console.WriteLine($"Verzorger {verwijderVerzorger} succesvol verwijderd.");
                         Console.ReadKey();
                         break;
-                        // Optie 4.4 Terug naar hoofdmenu
+                    // Optie 4.4 Terug naar hoofdmenu
                     case "4":
                         running = false;
                         break;
@@ -569,8 +674,12 @@ namespace TechTerra
         public static void ZoekDier()
         {
             Console.Clear();
+			Console.WriteLine("╔════════════════════════════════════════╗");
+			Console.WriteLine("║            DIER ZOEKEN                 ║");
+			Console.WriteLine("╚════════════════════════════════════════╝");
+			Console.WriteLine();
 
-            if (dieren.Count == 0)
+			if (dieren.Count == 0)
             {
                 Console.WriteLine("Er zijn geen dieren om te zoeken.");
                 Console.ReadKey();
@@ -590,7 +699,12 @@ namespace TechTerra
                 case "1":
                     // Zoeken op naam
                     Console.Clear();
-                    Console.Write("Voer naam in (of deel van naam) : ");
+					Console.WriteLine("╔════════════════════════════════════════╗");
+					Console.WriteLine("║        ZOEKEN OP NAAM                  ║");
+					Console.WriteLine("╚════════════════════════════════════════╝");
+					Console.WriteLine();
+
+					Console.Write("Voer naam in (of deel van naam) : ");
                     string zoekNaam = Console.ReadLine().ToLower();
 
                     List<Dier> gevondenOpNaam = dieren
@@ -603,7 +717,12 @@ namespace TechTerra
                 case "2":
                     // Zoeken op soort
                     Console.Clear();
-                    Console.Write("Voer soort in (of deel van soort) : ");
+					Console.WriteLine("╔════════════════════════════════════════╗");
+					Console.WriteLine("║        ZOEKEN OP SOORT                 ║");
+					Console.WriteLine("╚════════════════════════════════════════╝");
+					Console.WriteLine();
+
+					Console.Write("Voer soort in (of deel van soort) : ");
                     string zoekSoort = Console.ReadLine().ToLower();
 
                     List<Dier> gevondenOpSoort = dieren
@@ -753,7 +872,7 @@ namespace TechTerra
         //                            Console.WriteLine("Leeftijd : ");
         //                            int leeftijd = Convert.ToInt32(Console.ReadLine());
 
-        //                            TestVerblijf1.VoegDierToe(new Dier(ID, naam, soort, leeftijd, WachtVerblijf, WachtVerzorger ));
+        //                            TestVerblijf1.VoegDierToe(new Dier(ID, naam, soort, leeftijd, WachtVerblijf, WachtVerzorger));
         //                            Console.WriteLine(TestVerblijf1.ToString());
         //                            dierToevoegenBool = false;
         //                            break;
@@ -882,6 +1001,36 @@ namespace TechTerra
             //{
             //    Console.WriteLine(verzorger.ToString());
             //}
+        }
+
+        private static string GenereerDierID()
+        {
+            // Als er nog geen dieren zijn, begin bij 0000
+            if (dieren.Count == 0)
+            {
+                return "0000";
+            }
+
+            // Vind het hoogste nummer uit alle bestaande dieren
+            int hoogsteNummer = 0;
+
+            foreach (Dier dier in dieren)
+            {
+                // Probeer de ID om te zetten naar een nummer
+                if (int.TryParse(dier.dierID, out int nummer))
+                {
+                    if (nummer > hoogsteNummer)
+                    {
+                        hoogsteNummer = nummer;
+                    }
+                }
+            }
+
+            // Tel 1 bij het hoogste nummer op
+            int nieuwNummer = hoogsteNummer + 1;
+
+            // Maak een ID met 4 cijfers (0000, 0001, 0002, etc.)
+            return nieuwNummer.ToString("D4");
         }
     }
 }
