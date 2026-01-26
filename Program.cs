@@ -27,8 +27,8 @@ namespace TechTerra
             while (running)
             {
                 Console.Clear();
-                Console.WriteLine("Hoofdmenu ----------------");
-                Console.WriteLine("1. Dieren");
+                PrintFunctie("Hoofdmenu");
+				Console.WriteLine("1. Dieren");
                 Console.WriteLine("2. Voerschema");
                 Console.WriteLine("3. Verblijven");
                 Console.WriteLine("4. Verzorgers");
@@ -72,6 +72,7 @@ namespace TechTerra
             while (running)
             {
                 Console.Clear();
+                PrintFunctie("Dier Menu");
                 Console.WriteLine("1. Dier Overzicht");
                 Console.WriteLine("2. Dier Toevoegen");
                 Console.WriteLine("3. Dier Verwijderen");
@@ -87,9 +88,10 @@ namespace TechTerra
                     case "1":
                         // Optie 1.1 : overzicht van dieren in de lijst.
                         Console.Clear();
+                        PrintFunctie("Dier Overzicht");
 
-                        // Controleren of er dieren zijn.
-                        if (dieren.Count == 0 )
+						// Controleren of er dieren zijn.
+						if (dieren.Count == 0 )
                         {
                             Console.WriteLine("Er zijn geen dieren in de lijst.");
                         }
@@ -107,14 +109,15 @@ namespace TechTerra
                     case "2":
                         // Optie 1.2 : Nieuw dier toevoegen
                         Console.Clear();
-                        Console.WriteLine("Nieuw dier toevoegen");
+                        PrintFunctie("Dier Toevoegen");
+						Console.WriteLine("Nieuw dier toevoegen");
 
-                        // Invoer gegevens van nieuw dier invoeren en 
-                        // converten in het geval van andere datatypen.
-                        Console.Write("DierID :");
-                        string id = Convert.ToString(Console.ReadLine());
+						// Invoer gegevens van nieuw dier invoeren en 
+						// converten in het geval van andere datatypen.
+						string id = GenereerDierID();
 
-                        Console.Write("Naam : ");
+
+						Console.Write("Naam : ");
                         string naam = Convert.ToString(Console.ReadLine());
 
                         Console.Write("Soort : ");
@@ -186,7 +189,8 @@ namespace TechTerra
                     case "3":
                         // Optie 1.3 : Dier verwijderen
                         Console.Clear();
-                        if (dieren.Count == 0)
+                        PrintFunctie("Dier Verwijderen");
+						if (dieren.Count == 0)
                         {
                             Console.WriteLine("Er zijn geen dieren om te verwijderen.");
                             break;
@@ -219,7 +223,8 @@ namespace TechTerra
 
                         // Nieuwe Lijst aanmaken met dieren, en deze vullen met dieren die niet in een verblijf zitten.
                         Console.Clear();
-                        List<Dier> beschikbareDieren = new List<Dier>();
+                        PrintFunctie("Dier Toevoegen aan Verblijf");
+						List<Dier> beschikbareDieren = new List<Dier>();
                         foreach (Dier dier in dieren)
                         {
                             bool zitInVerblijf = false;
@@ -292,7 +297,8 @@ namespace TechTerra
                     case "5":
                         // Optie 1.5 : Dier toevoegen aan Verzorger
                         Console.Clear();
-                        if (dieren.Count == 0)
+                        PrintFunctie("Dier Toevoegen aan Verzorger");
+						if (dieren.Count == 0)
                         {
                             Console.WriteLine("Er zijn geen dieren om te kiezen.");
                             break;
@@ -363,7 +369,8 @@ namespace TechTerra
             while (running)
             {
                 Console.Clear();
-                Console.WriteLine("1. VoerSchema ( Niet geimplementeerd )");
+                PrintFunctie("Voerschema Menu");
+				Console.WriteLine("1. VoerSchema ( Niet geimplementeerd )");
                 Console.WriteLine("2. Terug naar hoofdmenu");
                 string inputChoice = Convert.ToString(Console.ReadLine());
                 switch (inputChoice)
@@ -396,7 +403,8 @@ namespace TechTerra
                     case "1":
                         // Optie 3.1 : Verblijf overzicht
                         Console.Clear();
-                        if (verblijven.Count == 0)
+                        PrintFunctie("Verblijf Overzicht");
+						if (verblijven.Count == 0)
 						{
 							Console.WriteLine("Er zijn geen verblijven in de lijst.");
 						}
@@ -413,6 +421,7 @@ namespace TechTerra
                     case "2":
 						// Optie 3.2 : Verblijf toevoegen
 						Console.Clear();
+                        PrintFunctie("Verblijf Toevoegen");
 
 						Console.WriteLine("Nieuw verblijf toevoegen");
 
@@ -440,6 +449,7 @@ namespace TechTerra
                     case "3":
 						// Optie 3.3 : Verblijf verwijderen
 						Console.Clear();
+                        PrintFunctie("Verblijf Verwijderen");
 
 						if (verblijven.Count == 0)
 						{
@@ -493,7 +503,8 @@ namespace TechTerra
                     case "1":
                         // Optie 4.1 Verzorger overzicht
                         Console.Clear();
-                        if (verzorgers.Count == 0)
+                        PrintFunctie("Verzorger Overzicht");
+						if (verzorgers.Count == 0)
                         {
                             Console.WriteLine("Er zijn geen verzorgers in de lijst.");
                         }
@@ -510,8 +521,8 @@ namespace TechTerra
                     case "2":
                         // Optie 4.2 Verzoger toevoegen
                         Console.Clear();
-
-                        Console.WriteLine("Nieuwe verzorger toevoegen");
+                        PrintFunctie("Verzorger Toevoegen");
+						Console.WriteLine("Nieuwe verzorger toevoegen");
 
                         Console.Write("VerzorgerID :");
                         string verzorgerID = Console.ReadLine();
@@ -528,8 +539,9 @@ namespace TechTerra
                     case "3":
                         // Optie 4.3 Verzorger verwijderen
                         Console.Clear();
+                        PrintFunctie("Verzorger Verwijderen");
 
-                        if (verzorgers.Count == 0)
+						if (verzorgers.Count == 0)
                         {
                             Console.WriteLine("Er zijn geen verzorgers om te verwijderen.");
                             break;
@@ -569,8 +581,9 @@ namespace TechTerra
         public static void ZoekDier()
         {
             Console.Clear();
+            PrintFunctie("Dier Zoeken");
 
-            if (dieren.Count == 0)
+			if (dieren.Count == 0)
             {
                 Console.WriteLine("Er zijn geen dieren om te zoeken.");
                 Console.ReadKey();
@@ -590,7 +603,8 @@ namespace TechTerra
                 case "1":
                     // Zoeken op naam
                     Console.Clear();
-                    Console.Write("Voer naam in (of deel van naam) : ");
+                    PrintFunctie("Zoeken op Naam");
+					Console.Write("Voer naam in (of deel van naam) : ");
                     string zoekNaam = Console.ReadLine().ToLower();
 
                     List<Dier> gevondenOpNaam = dieren
@@ -603,7 +617,8 @@ namespace TechTerra
                 case "2":
                     // Zoeken op soort
                     Console.Clear();
-                    Console.Write("Voer soort in (of deel van soort) : ");
+                    PrintFunctie("Zoeken op Soort");
+					Console.Write("Voer soort in (of deel van soort) : ");
                     string zoekSoort = Console.ReadLine().ToLower();
 
                     List<Dier> gevondenOpSoort = dieren
@@ -661,203 +676,213 @@ namespace TechTerra
             Console.WriteLine("\nDruk op een toets om terug te gaan...");
             Console.ReadKey();
         }
-        // OUDE CODE ---------------------------------
-        //public static void Running()
-        //{
-        //    // maak temp verblijf en verzorger aan
-        //    Verblijf WachtVerblijf = new Verblijf("VW01", "WachtVerblijf", 20, 5, "Oerwoud");
-        //    Dier inktvis = new Dier("D001", "Inky", "Inktvis", 3, WachtVerblijf, null);
 
-        //    WachtVerblijf.VoegDierToe(inktvis);
+        public static string PrintFunctie(string invoer)
+        {
+			Console.WriteLine("════════════════════════════════════════");
+			Console.WriteLine($"{invoer}                               ");
+			Console.WriteLine("════════════════════════════════════════");
+			Console.WriteLine();
 
-        //    Verzorger WachtVerzorger = new Verzorger("WachtVerzorger", "WVZ01");
+			return "Dit is een test functie";
+		}
+		// OUDE CODE ---------------------------------
+		//public static void Running()
+		//{
+		//    // maak temp verblijf en verzorger aan
+		//    Verblijf WachtVerblijf = new Verblijf("VW01", "WachtVerblijf", 20, 5, "Oerwoud");
+		//    Dier inktvis = new Dier("D001", "Inky", "Inktvis", 3, WachtVerblijf, null);
 
-        //    // maak eerste verblijf en dier aan
-        //    Verblijf TestVerblijf1 = new Verblijf("VW02", "TestVerblijf1", 20, 5, "Oerwoud");
-        //    Verzorger Bart = new Verzorger("Bart", "VZ01");
-        //    //TestVerblijf1.VoegDierToe(new Dier("12", "leo", "Leeuw", 2, WachtVerblijf, WachtVerzorger));
+		//    WachtVerblijf.VoegDierToe(inktvis);
 
-        //    List<Verblijf> verblijven = new List<Verblijf>();
-        //    verblijven.Add(TestVerblijf1);
+		//    Verzorger WachtVerzorger = new Verzorger("WachtVerzorger", "WVZ01");
 
+		//    // maak eerste verblijf en dier aan
+		//    Verblijf TestVerblijf1 = new Verblijf("VW02", "TestVerblijf1", 20, 5, "Oerwoud");
+		//    Verzorger Bart = new Verzorger("Bart", "VZ01");
+		//    //TestVerblijf1.VoegDierToe(new Dier("12", "leo", "Leeuw", 2, WachtVerblijf, WachtVerzorger));
 
-        //    // begin menu
-        //    bool running = true;
-        //    while (running)
-        //    {
-        //        Console.WriteLine("Keuze : ");
-        //        Console.WriteLine("1. Dieren Overzicht");
-        //        Console.WriteLine("2. Nieuw Dier Toevoegen");
-        //        Console.WriteLine("3. Voerschema");
-        //        Console.WriteLine("4. Verblijven");
-        //        Console.WriteLine("5. Afsluiten");
-        //        string inputChoice = Convert.ToString(Console.ReadLine());
-        //        switch (inputChoice)
-        //        {
-        //            case "1":
-        //                // Optie 1: Overzicht menu
-        //                bool overzichtBool = true;
-        //                while (overzichtBool)
-        //                {
-        //                    Console.WriteLine("Keuze : ");
-        //                    Console.WriteLine("1. Dieren");
-        //                    Console.WriteLine("2. Terug");
-        //                    string inputChoice1 = Convert.ToString(Console.ReadLine());
-        //                    switch (inputChoice1)
-        //                    {
-        //                        case "1":
-        //                            // Optie 1.1 : overzicht van dieren in de lijst.
-        //                            Console.Clear();
-        //                            if (dieren.Count == 0 )
-        //                            {
-        //                                Console.WriteLine("Er zijn geen dieren in de lijst.");
-        //                            }
-        //                            else
-        //                            {
-        //                                foreach (Dier dier in dieren)
-        //                                {
-        //                                    Console.WriteLine(dier.ToString());
-        //                                }
-        //                            }
-        //                            break;
-        //                        case "2":
-        //                            // Optie 1.2 : terug naar hoofdmenu
-        //                            overzichtBool = false;
-        //                            break;
-        //                    }
-        //                }
-        //                break;
-        //            case "2":
-        //                // Optie 2 : nieuw dier toevoegen
-        //                bool dierToevoegenBool = true;
-        //                while (dierToevoegenBool)
-        //                {
-        //                    Console.WriteLine("Keuze : ");
-        //                    Console.WriteLine("1. Dier Toevoegen");
-        //                    Console.WriteLine("2. Dier Verwijderen");
-        //                    Console.WriteLine("3. Terug");
-        //                    string inputChoice2 = Convert.ToString(Console.ReadLine());
-        //                    switch (inputChoice2)
-        //                    {
-        //                        case "1":
-        //                            // Optie 2.1 : Nieuw dier toevoegen
-        //                            Console.WriteLine("DierID :");
-        //                            string ID = Convert.ToString(Console.ReadLine());
-
-        //                            Console.WriteLine("Naam : ");
-        //                            string naam = Convert.ToString(Console.ReadLine());
-
-        //                            Console.WriteLine("Soort : ");
-        //                            string soort = Convert.ToString(Console.ReadLine());
-
-        //                            Console.WriteLine("Leeftijd : ");
-        //                            int leeftijd = Convert.ToInt32(Console.ReadLine());
-
-        //                            TestVerblijf1.VoegDierToe(new Dier(ID, naam, soort, leeftijd, WachtVerblijf, WachtVerzorger ));
-        //                            Console.WriteLine(TestVerblijf1.ToString());
-        //                            dierToevoegenBool = false;
-        //                            break;
-        //                        case "2":
-        //                            Console.Clear();
-        //                            Console.WriteLine("Kies een dier om te verwijderen:");
-
-        //                            TestVerblijf1.ToonDieren();
-
-        //                            Console.Write("Nummer van dier: ");
-        //                            if (int.TryParse(Console.ReadLine(), out int keuze))
-        //                            {
-        //                                if (TestVerblijf1.VerwijderDierOpIndex(keuze - 1))
-        //                                {
-        //                                    Console.WriteLine("Dier succesvol verwijderd.");
-        //                                }
-        //                                else
-        //                                {
-        //                                    Console.WriteLine("Ongeldige keuze.");
-        //                                }
-        //                            }
-        //                            else
-        //                            {
-        //                                Console.WriteLine("Voer een geldig nummer in.");
-        //                            }
-
-        //                            Console.WriteLine("Druk op een toets om door te gaan...");
-        //                            Console.ReadKey();
-        //                            break;
-        //                        case "3":
-        //                            // Optie 2.3 : terug naar hoofdmenu
-        //                            Console.WriteLine("Terug naar hoofdmenu");
-        //                            dierToevoegenBool = false;
-        //                            break;
-
-        //                    }
-        //                }
-        //                break;
-        //            case "3":
-        //                // Optie 3 : voerschema
-        //                break;
-        //            case "4":
-        //                // Optie 4 : verblijven
-        //                bool verblijfMenu = true;
-        //                while ( verblijfMenu)
-        //                {
-        //                    Console.Clear();
-        //                    Console.WriteLine("Keuze : ");
-        //                    Console.WriteLine("1. Verblijven toevoegen");
-        //                    Console.WriteLine("2. Verblijven verwijderen");
-        //                    Console.WriteLine("3. Terug");
-
-        //                    string verblijfKeuze = Console.ReadLine();
-
-        //                    switch (verblijfKeuze)
-        //                    {
-        //                        case "1":
-        //                            // Optie 4.1 : Verblijf toevoegen
-        //                            Console.Clear();
-        //                            Console.WriteLine("Nieuw verblijf aanmaken");
-
-        //                            Console.WriteLine("Verblijf ID : ");
-        //                            string verblijfID = Convert.ToString(Console.ReadLine());
-
-        //                            Console.WriteLine("Verblijf Naam : ");
-        //                            string verblijfNaam = Convert.ToString(Console.ReadLine());
+		//    List<Verblijf> verblijven = new List<Verblijf>();
+		//    verblijven.Add(TestVerblijf1);
 
 
-        //                            Console.WriteLine("Temperatuur : ");
-        //                            int temperatuur = Convert.ToInt32(Console.ReadLine());
+		//    // begin menu
+		//    bool running = true;
+		//    while (running)
+		//    {
+		//        Console.WriteLine("Keuze : ");
+		//        Console.WriteLine("1. Dieren Overzicht");
+		//        Console.WriteLine("2. Nieuw Dier Toevoegen");
+		//        Console.WriteLine("3. Voerschema");
+		//        Console.WriteLine("4. Verblijven");
+		//        Console.WriteLine("5. Afsluiten");
+		//        string inputChoice = Convert.ToString(Console.ReadLine());
+		//        switch (inputChoice)
+		//        {
+		//            case "1":
+		//                // Optie 1: Overzicht menu
+		//                bool overzichtBool = true;
+		//                while (overzichtBool)
+		//                {
+		//                    Console.WriteLine("Keuze : ");
+		//                    Console.WriteLine("1. Dieren");
+		//                    Console.WriteLine("2. Terug");
+		//                    string inputChoice1 = Convert.ToString(Console.ReadLine());
+		//                    switch (inputChoice1)
+		//                    {
+		//                        case "1":
+		//                            // Optie 1.1 : overzicht van dieren in de lijst.
+		//                            Console.Clear();
+		//                            if (dieren.Count == 0 )
+		//                            {
+		//                                Console.WriteLine("Er zijn geen dieren in de lijst.");
+		//                            }
+		//                            else
+		//                            {
+		//                                foreach (Dier dier in dieren)
+		//                                {
+		//                                    Console.WriteLine(dier.ToString());
+		//                                }
+		//                            }
+		//                            break;
+		//                        case "2":
+		//                            // Optie 1.2 : terug naar hoofdmenu
+		//                            overzichtBool = false;
+		//                            break;
+		//                    }
+		//                }
+		//                break;
+		//            case "2":
+		//                // Optie 2 : nieuw dier toevoegen
+		//                bool dierToevoegenBool = true;
+		//                while (dierToevoegenBool)
+		//                {
+		//                    Console.WriteLine("Keuze : ");
+		//                    Console.WriteLine("1. Dier Toevoegen");
+		//                    Console.WriteLine("2. Dier Verwijderen");
+		//                    Console.WriteLine("3. Terug");
+		//                    string inputChoice2 = Convert.ToString(Console.ReadLine());
+		//                    switch (inputChoice2)
+		//                    {
+		//                        case "1":
+		//                            // Optie 2.1 : Nieuw dier toevoegen
+		//                            Console.WriteLine("DierID :");
+		//                            string ID = Convert.ToString(Console.ReadLine());
 
-        //                            Console.WriteLine("Capaciteit : ");
-        //                            int capaciteit = Convert.ToInt32(Console.ReadLine());
+		//                            Console.WriteLine("Naam : ");
+		//                            string naam = Convert.ToString(Console.ReadLine());
 
-        //                            Console.WriteLine("Type Omgeving : ");
-        //                            string typeOmgeving = Convert.ToString(Console.ReadLine());
+		//                            Console.WriteLine("Soort : ");
+		//                            string soort = Convert.ToString(Console.ReadLine());
 
-        //                            Verblijf nieuwVerblijf = new Verblijf(verblijfID, verblijfNaam, temperatuur, capaciteit, typeOmgeving);
-        //                            verblijven.Add(nieuwVerblijf);
+		//                            Console.WriteLine("Leeftijd : ");
+		//                            int leeftijd = Convert.ToInt32(Console.ReadLine());
 
-        //                            Console.WriteLine("Verblijf succesvol toegevoegd. Druk op een toets om door te gaan...");
-        //                            Console.ReadKey();
-        //                            break;
-        //                        case "2":
-        //                            // Optie 4.2 : Verblijf verwijderen
-        //                            Console.WriteLine("Verblijf verwijderen nog niet geïmplementeerd.");
-        //                            break;
-        //                        case "3":
-        //                            // Optie 4.3 : terug naar hoofdmenu
-        //                            verblijfMenu = false;
-        //                            break;
-        //                    }
-        //                }
-        //                break;
-        //            case "5":
-        //                // Optie 5 : afsluiten
-        //                Console.WriteLine("Programma sluit af.");
-        //                running = false;
-        //                break;
-        //        }
-        //    }
-        //}
-        // ----------------------------------------------------
-        public static void CreateAllData()
+		//                            TestVerblijf1.VoegDierToe(new Dier(ID, naam, soort, leeftijd, WachtVerblijf, WachtVerzorger ));
+		//                            Console.WriteLine(TestVerblijf1.ToString());
+		//                            dierToevoegenBool = false;
+		//                            break;
+		//                        case "2":
+		//                            Console.Clear();
+		//                            Console.WriteLine("Kies een dier om te verwijderen:");
+
+		//                            TestVerblijf1.ToonDieren();
+
+		//                            Console.Write("Nummer van dier: ");
+		//                            if (int.TryParse(Console.ReadLine(), out int keuze))
+		//                            {
+		//                                if (TestVerblijf1.VerwijderDierOpIndex(keuze - 1))
+		//                                {
+		//                                    Console.WriteLine("Dier succesvol verwijderd.");
+		//                                }
+		//                                else
+		//                                {
+		//                                    Console.WriteLine("Ongeldige keuze.");
+		//                                }
+		//                            }
+		//                            else
+		//                            {
+		//                                Console.WriteLine("Voer een geldig nummer in.");
+		//                            }
+
+		//                            Console.WriteLine("Druk op een toets om door te gaan...");
+		//                            Console.ReadKey();
+		//                            break;
+		//                        case "3":
+		//                            // Optie 2.3 : terug naar hoofdmenu
+		//                            Console.WriteLine("Terug naar hoofdmenu");
+		//                            dierToevoegenBool = false;
+		//                            break;
+
+		//                    }
+		//                }
+		//                break;
+		//            case "3":
+		//                // Optie 3 : voerschema
+		//                break;
+		//            case "4":
+		//                // Optie 4 : verblijven
+		//                bool verblijfMenu = true;
+		//                while ( verblijfMenu)
+		//                {
+		//                    Console.Clear();
+		//                    Console.WriteLine("Keuze : ");
+		//                    Console.WriteLine("1. Verblijven toevoegen");
+		//                    Console.WriteLine("2. Verblijven verwijderen");
+		//                    Console.WriteLine("3. Terug");
+
+		//                    string verblijfKeuze = Console.ReadLine();
+
+		//                    switch (verblijfKeuze)
+		//                    {
+		//                        case "1":
+		//                            // Optie 4.1 : Verblijf toevoegen
+		//                            Console.Clear();
+		//                            Console.WriteLine("Nieuw verblijf aanmaken");
+
+		//                            Console.WriteLine("Verblijf ID : ");
+		//                            string verblijfID = Convert.ToString(Console.ReadLine());
+
+		//                            Console.WriteLine("Verblijf Naam : ");
+		//                            string verblijfNaam = Convert.ToString(Console.ReadLine());
+
+
+		//                            Console.WriteLine("Temperatuur : ");
+		//                            int temperatuur = Convert.ToInt32(Console.ReadLine());
+
+		//                            Console.WriteLine("Capaciteit : ");
+		//                            int capaciteit = Convert.ToInt32(Console.ReadLine());
+
+		//                            Console.WriteLine("Type Omgeving : ");
+		//                            string typeOmgeving = Convert.ToString(Console.ReadLine());
+
+		//                            Verblijf nieuwVerblijf = new Verblijf(verblijfID, verblijfNaam, temperatuur, capaciteit, typeOmgeving);
+		//                            verblijven.Add(nieuwVerblijf);
+
+		//                            Console.WriteLine("Verblijf succesvol toegevoegd. Druk op een toets om door te gaan...");
+		//                            Console.ReadKey();
+		//                            break;
+		//                        case "2":
+		//                            // Optie 4.2 : Verblijf verwijderen
+		//                            Console.WriteLine("Verblijf verwijderen nog niet geïmplementeerd.");
+		//                            break;
+		//                        case "3":
+		//                            // Optie 4.3 : terug naar hoofdmenu
+		//                            verblijfMenu = false;
+		//                            break;
+		//                    }
+		//                }
+		//                break;
+		//            case "5":
+		//                // Optie 5 : afsluiten
+		//                Console.WriteLine("Programma sluit af.");
+		//                running = false;
+		//                break;
+		//        }
+		//    }
+		//}
+		// ----------------------------------------------------
+		public static void CreateAllData()
         {
             DalSQL dalsql = new DalSQL();
 
@@ -883,5 +908,34 @@ namespace TechTerra
             //    Console.WriteLine(verzorger.ToString());
             //}
         }
-    }
+		private static string GenereerDierID()
+		{
+			// Als er nog geen dieren zijn, begin bij 0000
+			if (dieren.Count == 0)
+			{
+				return "0000";
+			}
+
+			// Vind het hoogste nummer uit alle bestaande dieren
+			int hoogsteNummer = 0;
+
+			foreach (Dier dier in dieren)
+			{
+				// Probeer de ID om te zetten naar een nummer
+				if (int.TryParse(dier.dierID, out int nummer))
+				{
+					if (nummer > hoogsteNummer)
+					{
+						hoogsteNummer = nummer;
+					}
+				}
+			}
+
+			// Tel 1 bij het hoogste nummer op
+			int nieuwNummer = hoogsteNummer + 1;
+
+			// Maak een ID met 4 cijfers (0000, 0001, 0002, etc.)
+			return nieuwNummer.ToString("D4");
+		}
+	}
 }
