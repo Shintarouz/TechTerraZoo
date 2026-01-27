@@ -354,8 +354,12 @@ namespace TechTerra
                         ZoekDier();
                         break;
 
-                    case "7":
-                        // Optie 1.6 : Terug naar hoofdmenu
+                    case "7"
+                        // Optie 1.7 : Dier verplaatsen
+                        VerplaatsDier();
+
+                    case "8":
+                        // Optie 1.8 : Terug naar hoofdmenu
                         running = false;
                         break;
                 }
@@ -995,5 +999,29 @@ namespace TechTerra
 			// Maak een ID met 4 cijfers (0001, 0002, etc.)
 			return nieuwNummer.ToString("D4");
 		}
+
+        public void VerplaatsDier()
+        {
+            if (dieren.Count == 0)
+            {
+                Console.WriteLine("Er zijn geen dieren in de lijst.");
+            }
+            else // Anders toon alle dieren.
+            {
+                foreach (Dier dier in dieren)
+                {
+                    Console.WriteLine(dier.ToString());
+                }
+            }
+            Console.Write("Voer nummer van dier in.");
+
+            if (!int.TryParse(Console.ReadLine(), out int keuze) || keuze < 1 || keuze > dieren.Count)
+            {
+                Console.WriteLine("Ongeldige keuze.");
+                break;
+            }
+
+            //string VerblijfID = DBGetVerblijfID("htgt");
+        }
 	}
 }

@@ -240,6 +240,30 @@ namespace TechTerra.DataAcces
             }
         }
 
+        // haalt het VerblijfID op uit DierID
+        public string DBGetVerblijfID(string dierID)
+        {
+            string query = @"SELECT VerblijdID FROM Dier WHERE DierID = @DierID";
+            string VerblijfID = null;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@DierID", dierID);
+
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string VerblijfID = reader.GetString(0);
+                    }
+                }
+
+            }
+            return VerblijfID;
+        }
         //public List<DierVoer> GetAllDierVoer()
         //{
         //    string query = @"SELECT VoerID, Naam, Hoeveelheid FROM DierVoer";
