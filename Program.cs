@@ -395,8 +395,9 @@ namespace TechTerra
                 Console.WriteLine("1. Verblijf Overzicht");
                 Console.WriteLine("2. Verblijf Toevoegen");
                 Console.WriteLine("3. Verblijf Verwijderen");
-                Console.WriteLine("4. Terug naar hoofdmenu");
-                Console.Write("Keuze : ");
+                Console.WriteLine("4. Verblijf zoeken");
+				Console.WriteLine("5. Terug naar hoofdmenu");
+				Console.Write("Keuze : ");
                 string inputChoice = Convert.ToString(Console.ReadLine());
                 switch (inputChoice)
                 {
@@ -477,8 +478,12 @@ namespace TechTerra
                         Console.WriteLine($"Verblijf {verwijderVerblijven.naam} succesvol verwijderd.");
                         Console.ReadKey();
                         break;
-                    case "4":
-                        // Optie 3.4 : Terug naar hoofdmenu
+					case "4":
+						// Optie 3.4 : Verblijf Zoeken
+						ZoekVerblijf();
+						break;
+					case "5":
+                        // Optie 3.5 : Terug naar hoofdmenu
                         running = false;
                         break;
                 }
@@ -606,11 +611,9 @@ namespace TechTerra
                     Console.Write("Voer naam in (of deel van naam) : ");
                     string zoekNaam = Console.ReadLine().ToLower();
 
-                    List<Dier> gevondenOpNaam = dieren
-                        .Where(d => d.naam.ToLower().Contains(zoekNaam))
-                        .ToList();
+                    List<Dier> gevondenOpNaam = dieren.Where(d => d.naam.ToLower().Contains(zoekNaam)).ToList();
 
-                    ToonZoekResultaten(gevondenOpNaam, "naam", zoekNaam);
+                    ToonZoekResultatenDier(gevondenOpNaam, "naam", zoekNaam);
                     break;
 
                 case "2":
@@ -620,11 +623,9 @@ namespace TechTerra
                     Console.Write("Voer soort in (of deel van soort) : ");
                     string zoekSoort = Console.ReadLine().ToLower();
 
-                    List<Dier> gevondenOpSoort = dieren
-                        .Where(d => d.soort.ToLower().Contains(zoekSoort))
-                        .ToList();
+                    List<Dier> gevondenOpSoort = dieren.Where(d => d.soort.ToLower().Contains(zoekSoort)).ToList();
 
-                    ToonZoekResultaten(gevondenOpSoort, "soort", zoekSoort);
+                    ToonZoekResultatenDier(gevondenOpSoort, "soort", zoekSoort);
                     break;
 
                 case "3":
@@ -638,7 +639,7 @@ namespace TechTerra
             }
         }
 
-        private static void ToonZoekResultaten(List<Dier> resultaten, string zoekType, string zoekTerm)
+        private static void ToonZoekResultatenDier(List<Dier> resultaten, string zoekType, string zoekTerm)
         {
             Console.Clear();
             Console.WriteLine($"=== ZOEKRESULTATEN VOOR {zoekTerm} (zoeken op {zoekType}) ===\n");
@@ -675,8 +676,81 @@ namespace TechTerra
             Console.WriteLine("\nDruk op een toets om terug te gaan...");
             Console.ReadKey();
         }
+		public static void ZoekVerblijf()
+		{
+			Console.Clear();
+			PrintFunctie("Verblijf Zoeken");
 
-        public static string PrintFunctie(string invoer)
+			if (verblijven.Count == 0)
+			{
+				Console.WriteLine("Er zijn geen verblijven om te zoeken.");
+				Console.ReadKey();
+				return;
+			}
+
+			Console.WriteLine("=== VERBLIJF ZOEKEN ===  ");
+			Console.WriteLine("1. Zoeken op Naam");
+			Console.WriteLine("2. Terug");
+			Console.Write("Keuze : ");
+
+			string keuze = Console.ReadLine();
+
+			switch (keuze)
+			{
+				case "1":
+					// Zoeken op naam
+					Console.Clear();
+					PrintFunctie("Zoeken op Naam");
+					Console.Write("Voer naam in (of deel van naam) : ");
+					string zoekNaam = Console.ReadLine().ToLower();
+
+					List<Verblijf> gevondenOpNaam = verblijven.Where(d => d.naam.ToLower().Contains(zoekNaam)).ToList();
+
+					ToonZoekResultatenVerblijven(gevondenOpNaam, "naam", zoekNaam);
+					break;
+
+
+				case "2":
+					// Terug
+					break;
+
+				default:
+					Console.WriteLine("Ongeldige keuze.");
+					Console.ReadKey();
+					break;
+			}
+		}
+        private static void ToonZoekResultatenVerblijven(List<Verblijf> resultaten, string zoekType, string zoekTerm)
+        {
+            Console.Clear();
+            Console.WriteLine($"=== ZOEKRESULTATEN VOOR {zoekTerm} (zoeken op {zoekType}) ===\n");
+
+            if (resultaten.Count == 0)
+            {
+                Console.WriteLine($"Geen verblijven gevonden met {zoekType} {zoekTerm}.");
+            }
+            else
+            {
+                Console.WriteLine($"Gevonden: {resultaten.Count} verblijven\n");
+
+                foreach (Verblijf verblijf in resultaten)
+                {
+                    Console.WriteLine("-------------------------------");
+                    Console.WriteLine($"Naam         : {verblijf.naam}");
+                    Console.WriteLine($"VerblijfID   : {verblijf.verblijfID}");
+                    Console.WriteLine($"Temperatuur  : {verblijf.temperatuur}");
+                    Console.WriteLine($"Capaciteit   : {verblijf.capaciteit}");
+                    Console.WriteLine($"Type Omgeving: {verblijf.typeOmgeving}");
+                    verblijf.ToonDieren();
+					Console.WriteLine("----------------------------------");
+                }
+
+                Console.WriteLine("\nDruk op een toets om terug te gaan...");
+                Console.ReadKey();
+            }
+        }
+
+		public static string PrintFunctie(string invoer)
         {
             Console.WriteLine("════════════════════════════════════════");
             Console.WriteLine($"{invoer}                               ");
@@ -891,23 +965,23 @@ namespace TechTerra
             dieren = dalsql.GetAllDieren();
 
 
-            // mag later verwijdert worden, Alleen bedoelt voor snelle print functies
-            //foreach (Dier dier in dieren)
-            //{
-            //    Console.WriteLine(dier.ToString());
-            //}
+			// mag later verwijdert worden, Alleen bedoelt voor snelle print functies
+			//foreach (Dier dier in dieren)
+			//{
+			//    Console.WriteLine(dier.ToString());
+			//}
 
-            //foreach (Verblijf verblijf in verblijven)
-            //{
-            //    Console.WriteLine(verblijf.ToString());
-            //}
+			//foreach (Verblijf verblijf in verblijven)
+			//{
+			//    Console.WriteLine(verblijf.ToString());
+			//}
 
-            //foreach (Verzorger verzorger in verzorgers)
-            //{
-            //    Console.WriteLine(verzorger.ToString());
-            //}
-        }
-        private static string GenereerDierID()
+			//foreach (Verzorger verzorger in verzorgers)
+			//{
+			//    Console.WriteLine(verzorger.ToString());
+			//}
+		}
+		private static string GenereerDierID()
         {
             // Als er nog geen dieren zijn, begin bij 0001
             if (dieren.Count == 0)

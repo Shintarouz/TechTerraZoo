@@ -153,7 +153,17 @@ namespace TechTerra.DataAcces
                 }
 
             }
-            return verblijven;
+			// voeg dieren toe aan verblijven in code
+			foreach (Verblijf verblijf in verblijven)
+			{
+				List<Dier> dierenInVerblijf = GetDierenVoorVerblijf(verblijf.verblijfID);
+				foreach (Dier dier in dierenInVerblijf)
+				{
+					verblijf.VoegDierToe(dier);
+				}
+			}
+
+			return verblijven;
         }
 
         // Haalt alle verzorgers op in de database en maakt er objecten van.
@@ -240,28 +250,61 @@ namespace TechTerra.DataAcces
             }
         }
 
-        //public List<DierVoer> GetAllDierVoer()
-        //{
-        //    string query = @"SELECT VoerID, Naam, Hoeveelheid FROM DierVoer";
-        //    List<DierVoer> dierVoerLijst = new List<DierVoer>();
-        //    using (SqlConnection connection = new SqlConnection(connectionString))
-        //    using (SqlCommand command = new SqlCommand(query, connection))
-        //    {
-        //        connection.Open();
-        //        using (SqlDataReader reader = command.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                string voerID = reader.GetString(0);
-        //                string naam = reader.GetString(1);
-        //                int hoeveelheid = reader.GetInt32(2);
-        //                DierVoer dierVoer = new DierVoer(voerID, naam, hoeveelheid);
-        //                dierVoerLijst.Add(dierVoer);
-        //            }
-        //        }
-        //    }
-        //    return dierVoerLijst;
-        //}
-    }
+		// Haalt alle dieren op voor een specifiek verblijf
+		public List<Dier> GetDierenVoorVerblijf(string verblijfID)
+		{
+			string query = @"SELECT DierID, Naam, Soort, Leeftijd, VerblijfID, VerzorgerID 
+                     FROM Dier 
+                     WHERE VerblijfID = @VerblijfID";
+			List<Dier> dieren = new List<Dier>();
+
+			using (SqlConnection connection = new SqlConnection(connectionString))
+			using (SqlCommand command = new SqlCommand(query, connection))
+			{
+				command.Parameters.AddWithValue("@VerblijfID", verblijfID);
+
+				connection.Open();
+				using (SqlDataReader reader = command.ExecuteReader())
+				{
+					while (reader.Read())
+					{
+						string dierID = reader.GetString(0);
+						string naam = reader.GetString(1);
+						string soort = reader.GetString(2);
+						int leeftijd = reader.GetInt32(3);
+						string verzorgerID = reader.GetString(5);
+
+						Verzorger verzorger = GetVerzorger(verzorgerID);
+						Dier dier = new Dier(dierID, naam, soort, leeftijd, null, verzorger);
+						dieren.Add(dier);
+					}
+				}
+			}
+			return dieren;
+		}
+
+		//public List<DierVoer> GetAllDierVoer()
+		//{
+		//    string query = @"SELECT VoerID, Naam, Hoeveelheid FROM DierVoer";
+		//    List<DierVoer> dierVoerLijst = new List<DierVoer>();
+		//    using (SqlConnection connection = new SqlConnection(connectionString))
+		//    using (SqlCommand command = new SqlCommand(query, connection))
+		//    {
+		//        connection.Open();
+		//        using (SqlDataReader reader = command.ExecuteReader())
+		//        {
+		//            while (reader.Read())
+		//            {
+		//                string voerID = reader.GetString(0);
+		//                string naam = reader.GetString(1);
+		//                int hoeveelheid = reader.GetInt32(2);
+		//                DierVoer dierVoer = new DierVoer(voerID, naam, hoeveelheid);
+		//                dierVoerLijst.Add(dierVoer);
+		//            }
+		//        }
+		//    }
+		//    return dierVoerLijst;
+		//}
+	}
 
 }
