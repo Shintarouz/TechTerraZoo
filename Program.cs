@@ -909,10 +909,10 @@ namespace TechTerra
         }
         private static string GenereerDierID()
         {
-            // Als er nog geen dieren zijn, begin bij 0000
+            // Als er nog geen dieren zijn, begin bij 0001
             if (dieren.Count == 0)
             {
-                return "0000";
+                return "0001";
             }
 
             // Vind het hoogste nummer uit alle bestaande dieren
@@ -933,13 +933,13 @@ namespace TechTerra
             // Tel 1 bij het hoogste nummer op
             int nieuwNummer = hoogsteNummer + 1;
 
-            // Maak een ID met 4 cijfers (0000, 0001, 0002, etc.)
+            // Maak een ID met 4 cijfers (0001, 0002, etc.)
             return nieuwNummer.ToString("D4");
         }
 
         private static string GenereerVerblijfID()
         {
-            // Als er nog geen dieren zijn, begin bij 0000
+            // Als er nog geen dieren zijn, begin bij 0001
             if (verblijven.Count == 0)
             {
                 return "0001";
@@ -963,12 +963,12 @@ namespace TechTerra
             // Tel 1 bij het hoogste nummer op
             int nieuwNummer = hoogsteNummer + 1;
 
-            // Maak een ID met 4 cijfers (0000, 0001, 0002, etc.)
+            // Maak een ID met 4 cijfers (0001, 0002, etc.)
             return nieuwNummer.ToString("D4");
         }
 		private static string GenereerVerzorgerID()
 		{
-			// Als er nog geen dieren zijn, begin bij 0000
+			// Als er nog geen dieren zijn, begin bij 0001
 			if (verzorgers.Count == 0)
 			{
 				return "0001";
@@ -992,7 +992,7 @@ namespace TechTerra
 			// Tel 1 bij het hoogste nummer op
 			int nieuwNummer = hoogsteNummer + 1;
 
-			// Maak een ID met 4 cijfers (0000, 0001, 0002, etc.)
+			// Maak een ID met 4 cijfers (0001, 0002, etc.)
 			return nieuwNummer.ToString("D4");
 		}
 	}
