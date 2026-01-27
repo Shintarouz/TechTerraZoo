@@ -224,7 +224,7 @@ namespace TechTerra.DataAcces
         public static void DBAddVerblijf(Verblijf verblijf)
         {
             string query = @"INSERT INTO Verblijf(VerblijfID, Naam, Temperatuur, Capaciteit, TypeOmgeving)
-                           VALUES(@VerblijfID, @Naam, @Temperatuur, @Temperatuur, @TypeOmgeving)";
+                           VALUES(@VerblijfID, @Naam, @Temperatuur, @Capaciteit, @TypeOmgeving)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             using (SqlCommand command = new SqlCommand(query, connection))
