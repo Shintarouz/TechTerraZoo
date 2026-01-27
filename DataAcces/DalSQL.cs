@@ -153,7 +153,17 @@ namespace TechTerra.DataAcces
                 }
 
             }
-            return verblijven;
+			// voeg dieren toe aan verblijven in code
+			foreach (Verblijf verblijf in verblijven)
+			{
+				List<Dier> dierenInVerblijf = GetDierenVoorVerblijf(verblijf.verblijfID);
+				foreach (Dier dier in dierenInVerblijf)
+				{
+					verblijf.VoegDierToe(dier);
+				}
+			}
+
+			return verblijven;
         }
 
         // Haalt alle verzorgers op in de database en maakt er objecten van.
