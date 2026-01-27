@@ -200,7 +200,7 @@ namespace TechTerra.DataAcces
                 command.ExecuteNonQuery();
             }
         }
-        
+
         // Verzorger toevoegen aan de database
         public static void DBAddVerzorger(Verzorger verzorger)
         {
@@ -241,9 +241,9 @@ namespace TechTerra.DataAcces
         }
 
         // haalt het VerblijfID op uit DierID
-        public string DBGetVerblijfID(string dierID)
+        public static string DBGetVerblijfID(string dierID)
         {
-            string query = @"SELECT VerblijdID FROM Dier WHERE DierID = @DierID";
+            string query = @"SELECT VerblijfID FROM Dier WHERE DierID = @DierID";
             string VerblijfID = null;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -257,12 +257,27 @@ namespace TechTerra.DataAcces
                 {
                     while (reader.Read())
                     {
-                        string VerblijfID = reader.GetString(0);
+                        VerblijfID = reader.GetString(0);
                     }
                 }
 
             }
             return VerblijfID;
+        }
+
+        public static void UpdateVerblijfVanDier(string dierID, string nieuwVerblijfID)
+        {
+            string query = "UPDATE dier SET VerblijfID = @verblijfID WHERE DierID = @dierID";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@verblijfID", nieuwVerblijfID);
+                command.Parameters.AddWithValue("@dierID", dierID);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
         //public List<DierVoer> GetAllDierVoer()
         //{

@@ -79,7 +79,8 @@ namespace TechTerra
                 Console.WriteLine("4. Dier Toevoegen aan Verblijf");
                 Console.WriteLine("5. Dier Toevoegen aan Verzorger");
                 Console.WriteLine("6. Dier Zoeken");
-                Console.WriteLine("7. Terug naar hoofdmenu");
+                Console.WriteLine("7. Dier verplaatsen");
+                Console.WriteLine("8. Terug naar hoofdmenu");
                 Console.Write("Keuze : ");
 
                 string inputChoice = Convert.ToString(Console.ReadLine());
@@ -354,9 +355,10 @@ namespace TechTerra
                         ZoekDier();
                         break;
 
-                    case "7"
+                    case "7":
                         // Optie 1.7 : Dier verplaatsen
                         VerplaatsDier();
+                        break;
 
                     case "8":
                         // Optie 1.8 : Terug naar hoofdmenu
@@ -1000,26 +1002,38 @@ namespace TechTerra
 			return nieuwNummer.ToString("D4");
 		}
 
-        public void VerplaatsDier()
+        public static void VerplaatsDier()
         {
-            if (dieren.Count == 0)
+            for (int i = 0; i < dieren.Count; i++)
             {
-                Console.WriteLine("Er zijn geen dieren in de lijst.");
+                Console.WriteLine($"{i + 1}. {dieren[i].naam} ({dieren[i].soort})");
             }
-            else // Anders toon alle dieren.
-            {
-                foreach (Dier dier in dieren)
-                {
-                    Console.WriteLine(dier.ToString());
-                }
-            }
-            Console.Write("Voer nummer van dier in.");
+            Console.Write("Nummer van dier: ");
 
             if (!int.TryParse(Console.ReadLine(), out int keuze) || keuze < 1 || keuze > dieren.Count)
             {
-                Console.WriteLine("Ongeldige keuze.");
-                break;
+                Console.WriteLine("Ongeldige keuze.");         
             }
+
+            Dier VerplaatsDier = dieren[keuze -1];
+            string VerblijfID = DalSQL.DBGetVerblijfID(VerplaatsDier.dierID);
+            
+
+            for (int i = 0; i < verblijven.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {verblijven[i].naam}");
+            }
+            Console.Write("Nummer van verblijf : ");
+
+            if (!int.TryParse(Console.ReadLine(), out int keuze2) || keuze2 < 1 || keuze2 > verblijven.Count)
+            {
+                Console.WriteLine("Ongeldige keuze.");
+            }
+
+            Verblijf VerplaatsVerblijf = verblijven[keuze - 1];
+            VerblijfID = VerplaatsVerblijf.verblijfID;
+
+            DalSQL.UpdateVerblijfVanDier(VerplaatsDier.dierID, VerplaatsVerblijf.verblijfID);
 
             //string VerblijfID = DBGetVerblijfID("htgt");
         }
