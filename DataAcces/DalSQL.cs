@@ -289,6 +289,37 @@ namespace TechTerra.DataAcces
                 command.ExecuteNonQuery();
             }
         }
+        public List<Dier> GetDierenVoorVerblijf(string verblijfID)
+        {
+            string query = @"SELECT DierID, Naam, Soort, Leeftijd, VerblijfID, VerzorgerID 
+                     FROM Dier 
+                     WHERE VerblijfID = @VerblijfID";
+            List<Dier> dieren = new List<Dier>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@VerblijfID", verblijfID);
+
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string dierID = reader.GetString(0);
+                        string naam = reader.GetString(1);
+                        string soort = reader.GetString(2);
+                        int leeftijd = reader.GetInt32(3);
+                        string verzorgerID = reader.GetString(5);
+
+                        Verzorger verzorger = GetVerzorger(verzorgerID);
+                        Dier dier = new Dier(dierID, naam, soort, leeftijd, null, verzorger);
+                        dieren.Add(dier);
+                    }
+                }
+            }
+            return dieren;
+        }
         //public List<DierVoer> GetAllDierVoer()
         //{
         //    string query = @"SELECT VoerID, Naam, Hoeveelheid FROM DierVoer";

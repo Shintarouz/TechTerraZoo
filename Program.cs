@@ -1104,12 +1104,16 @@ namespace TechTerra
                 Console.WriteLine("Ongeldige keuze.");
             }
 
-            Verblijf VerplaatsVerblijf = verblijven[keuze - 1];
+            Verblijf VerplaatsVerblijf = verblijven[keuze2 - 1];
             VerblijfID = VerplaatsVerblijf.verblijfID;
 
             DalSQL.UpdateVerblijfVanDier(VerplaatsDier.dierID, VerplaatsVerblijf.verblijfID);
 
-            //string VerblijfID = DBGetVerblijfID("htgt");
+            VerplaatsVerblijf.VoegDierToe(VerplaatsDier);
+            CreateAllData();
+
+            Console.WriteLine($"{VerplaatsDier.naam} is verplaatst naar {VerplaatsVerblijf.naam}.");
+            Console.ReadKey();
         }
 	}
 }
